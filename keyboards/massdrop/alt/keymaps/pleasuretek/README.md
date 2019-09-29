@@ -1,0 +1,5 @@
+* [YouTube Video 1: Building custom QMK firmware for the massdrop ALT keyboard from source code](https://youtu.be/janRCDU1KPg)
+* [YouTube Video 2](https://www.youtube.com/watch?v=4PN1KFB4gCc)
+* [Source code is on my github](https://github.com/pleasuretek/qmk_firmware)
+* [QMK keymap list of keycodes](https://beta.docs.qmk.fm/features/keycodes_basic)
+* [Spreadsheet to help calculate bitwise ids for individual keys](https://docs.google.com/spreadsheets/d/1bsaMF4qmJNhvqlxmHmaXnhs7gung7_A0EqAyjStg_7U/edit?usp=sharing) (credit to @lastcontinue and famguy07 on massdrop forums)
