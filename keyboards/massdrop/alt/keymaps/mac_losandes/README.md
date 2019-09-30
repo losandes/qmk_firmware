@@ -44,7 +44,7 @@ make massdrop/alt:default
 ## Building Firmware
 
 ```Shell
-rm massdrop_alt_losandes.bin
+rm massdrop_alt_mac_losandes.bin
 make clean
-make massdrop/alt:losandes
+make massdrop/alt:mac_losandes
 ```

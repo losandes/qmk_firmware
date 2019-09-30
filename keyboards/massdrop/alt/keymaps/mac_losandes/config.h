@@ -1,6 +1,3 @@
-// Time to wait between sending strings
-#define SEND_STRING_WAIT_MS		30
-
 // Apps
 #define APP_IDE               "atom.app"
 #define APP_TRM               "Terminal.app"
