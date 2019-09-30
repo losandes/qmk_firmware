@@ -48,3 +48,8 @@ rm massdrop_alt_mac_losandes.bin
 make clean
 make massdrop/alt:mac_losandes
 ```
+
+## Reference
+
+* [Spreadsheet to help calculate bitwise ids for individual keys](https://docs.google.com/spreadsheets/d/1bsaMF4qmJNhvqlxmHmaXnhs7gung7_A0EqAyjStg_7U/edit?usp=sharing) (by @lastcontinue,famguy07, pleasuretek)
+* [QMK keymap list of keycodes](https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md)
