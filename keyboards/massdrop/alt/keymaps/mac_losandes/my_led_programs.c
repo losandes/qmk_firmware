@@ -116,7 +116,7 @@ led_setup_t leds_cyan_pink_s[] = {
 };
 
 //Rainbow Scrolling With Gap
-led_setup_t leds_rainbow_gap_1_s[] = {
+led_setup_t leds_rainbow_burst_s[] = {
   { .hs = 0,      .he = 16.67,  .rs = 255, .re = 255, .gs = 0,   .ge = 255, .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
   { .hs = 16.67,  .he = 33.33,  .rs = 255, .re = 0,   .gs = 255, .ge = 255, .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
   { .hs = 33.33,  .he = 50,     .rs = 0,   .re = 0,   .gs = 255, .ge = 255, .bs = 0,   .be = 255, .ef = EF_OVER | EF_SCR_R },
@@ -126,7 +126,7 @@ led_setup_t leds_rainbow_gap_1_s[] = {
   { .end = 1 },
 };
 
-led_setup_t leds_rainbow_gap_2_s[] = {
+led_setup_t leds_rainbow_double_burst_s[] = {
   { .hs = 0,      .he = 16.67,  .rs = 255, .re = 255, .gs = 0,   .ge = 255, .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
   { .hs = 16.67,  .he = 33.33,  .rs = 255, .re = 0,   .gs = 255, .ge = 255, .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
   { .hs = 33.33,  .he = 50,     .rs = 0,   .re = 0,   .gs = 255, .ge = 255, .bs = 0,   .be = 255, .ef = EF_OVER | EF_SCR_R },
@@ -136,7 +136,8 @@ led_setup_t leds_rainbow_gap_2_s[] = {
   { .end = 1 },
 };
 
-led_setup_t leds_rainbow_gap_3_s[] = {
+//Troll Dance Party
+led_setup_t leds_trolls_dance_party_s[] = {
   { .hs = 0,      .he = 16.67,  .rs = 255, .re = 255, .gs = 0,   .ge = 255, .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
   { .hs = 16.67,  .he = 33.33,  .rs = 0, .re = 0,   .gs = 0, .ge = 0, .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
   { .hs = 33.33,  .he = 50,     .rs = 0,   .re = 0,   .gs = 255, .ge = 255, .bs = 0,   .be = 255, .ef = EF_OVER | EF_SCR_R },
@@ -148,35 +149,119 @@ led_setup_t leds_rainbow_gap_3_s[] = {
 
 //Irish scrolling
 led_setup_t leds_irish_s[] = {
-    { .hs = 0,      .he = 16.67,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER | EF_SCR_R },
-    { .hs = 16.67,  .he = 33.33,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER | EF_SCR_R },
-    { .hs = 33.33,  .he = 50,     .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 50,     .he = 66.67,  .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 66.67,  .he = 83.33,  .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER | EF_SCR_R },
-    { .hs = 83.33,  .he = 100,    .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER | EF_SCR_R },
-    { .end = 1 },
+  // rgb(22, 155, 98)
+  { .hs = 0,      .he = 16.67,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER | EF_SCR_R },
+  { .hs = 16.67,  .he = 33.33,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 255, 255)
+  { .hs = 33.33,  .he = 50,     .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 50,     .he = 66.67,  .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 136, 62)
+  { .hs = 66.67,  .he = 83.33,  .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER | EF_SCR_R },
+  { .hs = 83.33,  .he = 100,    .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER | EF_SCR_R },
+  { .end = 1 },
 };
 
 //Irish No Scrolling
 led_setup_t leds_irish_ns[] = {
-    { .hs = 0,      .he = 16.67,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER },
-    { .hs = 16.67,  .he = 33.33,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER },
-    { .hs = 33.33,  .he = 50,     .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER },
-    { .hs = 50,     .he = 66.67,  .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER },
-    { .hs = 66.67,  .he = 83.33,  .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER },
-    { .hs = 83.33,  .he = 100,    .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER },
-    { .end = 1 },
+  // rgb(22, 155, 98)
+  { .hs = 0,      .he = 16.67,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER },
+  { .hs = 16.67,  .he = 33.33,  .rs = 22,  .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER },
+  // rgb(255, 255, 255)
+  { .hs = 33.33,  .he = 50,     .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER },
+  { .hs = 50,     .he = 66.67,  .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER },
+  // rgb(255, 136, 62)
+  { .hs = 66.67,  .he = 83.33,  .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER },
+  { .hs = 83.33,  .he = 100,    .rs = 255, .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER },
+  { .end = 1 },
 };
 
 //blue-white-orange Scrolling
 led_setup_t leds_bwo_s[] = {
-    { .hs = 0,      .he = 16.67,  .rs = 22, .re = 22, .gs = 155,   .ge = 155, .bs = 98,   .be = 98,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 16.67,  .he = 33.33,  .rs = 22, .re = 255,   .gs = 155, .ge = 255, .bs = 98,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 33.33,  .he = 50,     .rs = 255,   .re = 255,   .gs = 255, .ge = 255, .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 50,     .he = 66.67,  .rs = 0,   .re = 0,   .gs = 255, .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 66.67,  .he = 83.33,  .rs = 255 ,   .re = 255, .gs = 136,   .ge = 136,   .bs = 62, .be = 62, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 83.33,  .he = 100,    .rs = 255 ,   .re = 22, .gs = 136,   .ge = 155,   .bs = 62, .be = 98,   .ef = EF_OVER | EF_SCR_R },
-    { .end = 1 },
+  // rgb(22, 155, 98)
+  { .hs = 0,      .he = 16.67,  .rs = 22,   .re = 22,  .gs = 155, .ge = 155, .bs = 98,  .be = 98,  .ef = EF_OVER | EF_SCR_R },
+  { .hs = 16.67,  .he = 33.33,  .rs = 22,   .re = 255, .gs = 155, .ge = 255, .bs = 98,  .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 255, 255)
+  { .hs = 33.33,  .he = 50,     .rs = 255,  .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 50,     .he = 66.67,  .rs = 0,    .re = 0,   .gs = 255, .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 136, 62)
+  { .hs = 66.67,  .he = 83.33,  .rs = 255 , .re = 255, .gs = 136, .ge = 136, .bs = 62,  .be = 62,  .ef = EF_OVER | EF_SCR_R },
+  { .hs = 83.33,  .he = 100,    .rs = 255 , .re = 22,  .gs = 136, .ge = 155, .bs = 62,  .be = 98,  .ef = EF_OVER | EF_SCR_R },
+  { .end = 1 },
+};
+
+//Purple Rainbow
+led_setup_t led_purple_rainbow_s[] = {
+  // rgb(30, 0, 255);
+  { .hs = 0,      .he = 16.67,  .rs = 30,  .re = 30,  .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 16.67,  .he = 33.33,  .rs = 30,  .re = 127, .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(127, 0, 255);
+  { .hs = 33.33,  .he = 50,     .rs = 127, .re = 127, .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 50,     .he = 66.67,  .rs = 127, .re = 255, .gs = 0,   .ge = 0,   .bs = 255, .be = 130, .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 0, 130);
+  { .hs = 66.67,  .he = 83.33,  .rs = 255, .re = 255, .gs = 0,   .ge = 0,   .bs = 130, .be = 130, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 83.33,  .he = 100,    .rs = 130, .re = 30,  .gs = 0,   .ge = 0,   .bs = 130, .be = 255,   .ef = EF_OVER | EF_SCR_R },
+  { .end = 1 },
+};
+
+led_setup_t led_purple_rainbow_2_s[] = {
+  // rgb(30, 0, 255);
+  { .hs = 0,  .he = 10,  .rs = 30,  .re = 30,  .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 10, .he = 20,  .rs = 30,  .re = 127, .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(127, 0, 255);
+  { .hs = 20, .he = 30,  .rs = 127, .re = 127, .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 30, .he = 40,  .rs = 127, .re = 238, .gs = 0,   .ge = 0,   .bs = 255, .be = 213, .ef = EF_OVER | EF_SCR_R },
+  // rgb(238, 0, 213);
+  { .hs = 40, .he = 50,  .rs = 238, .re = 238, .gs = 0,   .ge = 0,   .bs = 213, .be = 213, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 50, .he = 60,  .rs = 238, .re = 255, .gs = 0,   .ge = 0,   .bs = 213, .be = 130, .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 0, 130);
+  { .hs = 60, .he = 70,  .rs = 255, .re = 255, .gs = 0,   .ge = 0,   .bs = 130, .be = 130, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 70, .he = 80,  .rs = 255, .re = 0,   .gs = 0,   .ge = 0,   .bs = 130, .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  // rgb(0, 0, 0);
+  { .hs = 80, .he = 90,  .rs = 0,   .re = 0,   .gs = 0,   .ge = 0,   .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 90, .he = 100, .rs = 0,   .re = 30,  .gs = 0,   .ge = 0,   .bs = 0,   .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .end = 1 },
+};
+
+led_setup_t led_purple_rainbow_3_s[] = {
+  // rgb(30, 0, 255);
+  { .hs = 0,    .he = 8.33, .rs = 30,  .re = 30,  .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 8.33, .he = 16.6, .rs = 30,  .re = 0,   .gs = 0,   .ge = 0,   .bs = 255, .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  // rgb(0, 0, 0);
+  { .hs = 16.6, .he = 24.9, .rs = 0,   .re = 0,   .gs = 0,   .ge = 0,   .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 24.9, .he = 33.2, .rs = 0,   .re = 127, .gs = 0,   .ge = 0,   .bs = 0,   .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(127, 0, 255);
+  { .hs = 33.2, .he = 41.5, .rs = 127, .re = 127, .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 41.5, .he = 49.8, .rs = 127, .re = 127, .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(0, 0, 0);
+  { .hs = 49.8, .he = 58.1, .rs = 127, .re = 0,   .gs = 0,   .ge = 0,   .bs = 255,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 58.1, .he = 66.4, .rs = 0,   .re = 0,   .gs = 0,   .ge = 0,   .bs = 0,   .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  // rgb(238, 0, 213);
+  { .hs = 66.4, .he = 74.7, .rs = 238, .re = 238, .gs = 0,   .ge = 0,   .bs = 213, .be = 213, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 74.7, .he = 83,   .rs = 238, .re = 238, .gs = 0,   .ge = 0,   .bs = 213, .be = 213, .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 0, 130);
+  { .hs = 83,   .he = 91.3, .rs = 255, .re = 255, .gs = 0,   .ge = 0,   .bs = 130, .be = 130,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 91.3, .he = 100,  .rs = 255, .re = 255, .gs = 0,   .ge = 0,   .bs = 130, .be = 130,   .ef = EF_OVER | EF_SCR_R },
+  { .end = 1 },
+};
+
+led_setup_t led_purple_rainbow_4_s[] = {
+  // rgb(30, 0, 255);
+  { .hs = 0,    .he = 8.33, .rs = 30,  .re = 30,  .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 8.33, .he = 16.6, .rs = 30,  .re = 0,   .gs = 0,   .ge = 0,   .bs = 255, .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 16.6, .he = 24.9, .rs = 0,   .re = 127, .gs = 0,   .ge = 0,   .bs = 0,   .be = 255, .ef = EF_OVER | EF_SCR_R },
+  // rgb(127, 0, 255);
+  { .hs = 24.9, .he = 33.2, .rs = 127, .re = 127, .gs = 0,   .ge = 0,   .bs = 255, .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 33.2, .he = 41.5, .rs = 127, .re = 0,   .gs = 0,   .ge = 0,   .bs = 255, .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 41.5, .he = 49.8, .rs = 0,   .re = 238, .gs = 0,   .ge = 0,   .bs = 0,   .be = 213, .ef = EF_OVER | EF_SCR_R },
+  // rgb(238, 0, 213);
+  { .hs = 49.8, .he = 58.1, .rs = 238, .re = 238, .gs = 0,   .ge = 0,   .bs = 213, .be = 213, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 58.1, .he = 66.4, .rs = 238, .re = 0,   .gs = 0,   .ge = 0,   .bs = 213, .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 66.4, .he = 74.7, .rs = 0,   .re = 238, .gs = 0,   .ge = 0,   .bs = 0,   .be = 213, .ef = EF_OVER | EF_SCR_R },
+  // rgb(255, 0, 130);
+  { .hs = 74.7, .he = 83,   .rs = 255, .re = 255, .gs = 0,   .ge = 0,   .bs = 130, .be = 130, .ef = EF_OVER | EF_SCR_R },
+  { .hs = 83,   .he = 91.3, .rs = 255, .re = 0,   .gs = 0,   .ge = 0,   .bs = 130, .be = 0,   .ef = EF_OVER | EF_SCR_R },
+  { .hs = 91.3, .he = 100,  .rs = 0,   .re = 30,  .gs = 0,   .ge = 0,   .bs = 0,   .be = 255, .ef = EF_OVER | EF_SCR_R },
+  { .end = 1 },
 };
 
 #endif
