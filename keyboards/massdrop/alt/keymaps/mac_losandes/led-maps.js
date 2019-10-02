@@ -1,235 +1,165 @@
-// keys
-// [layer, keyid, flag]
-const k = {
-  esc: [0, 1],
-  n1: [0, 2],
-  n2: [0, 3],
-  n3: [0, 4],
-  n4: [0, 5],
-  n5: [0, 6],
-  n6: [0, 7],
-  n7: [0, 8],
-  n8: [0, 9],
-  n9: [0, 10],
-  n0: [0, 11],
-  dash: [0, 12],
-  eqal: [0, 13],
-  bksp: [0, 14],
-  del: [0, 15],
-  tab: [0, 16],
-  q: [0, 17],
-  w: [0, 18],
-  e: [0, 19],
-  r: [0, 20],
-  t: [0, 21],
-  y: [0, 22],
-  u: [0, 23],
-  i: [0, 24],
-  o: [0, 25],
-  p: [0, 26],
-  obrk: [0, 27],
-  cbrk: [0, 28],
-  bslh: [0, 29],
-  home: [0, 30],
-  caps: [0, 31],
-  a: [0, 32],
-  s: [1, 33],
-  d: [1, 34],
-  f: [1, 35],
-  g: [1, 36],
-  h: [1, 37],
-  j: [1, 38],
-  k: [1, 39],
-  l: [1, 40],
-  coln: [1, 41],
-  quot: [1, 42],
-  entr: [1, 43],
-  pgup: [1, 44],
-  lshf: [1, 45],
-  z: [1, 46],
-  x: [1, 47],
-  c: [1, 48],
-  v: [1, 49],
-  b: [1, 50],
-  n: [1, 51],
-  m: [1, 52],
-  comm: [1, 53],
-  perd: [1, 54],
-  fslh: [1, 55],
-  rshf: [1, 56],
-  arru: [1, 57],
-  pgdn: [1, 58],
-  lfn: [1, 59],
-  lalt: [1, 60],
-  lcmd: [1, 61],
-  spce: [1, 62],
-  rcmd: [1, 63],
-  rfn: [1, 64],
-  arrl: [2, 65],
-  arrd: [2, 66],
-  arrr: [2, 67],
-}
+const keymap = [
+                        100      , 99       , 98       , 97       , 96       , 95       , 94       , 93       , 92       , 91       , 90       , 89       , 88       ,
+  101      , 1        , 2        , 3        , 4        , 5        , 6        , 7        , 8        , 9        , 10       , 11       , 12       , 13       , 14       , 15       , 87     ,
+  102      , 16       , 17       , 18       , 19       , 20       , 21       , 22       , 23       , 24       , 25       , 26       , 27       , 28       , 29       , 30       , 86     ,
+  103      , 31       , 32       , 33       , 34       , 35       , 36       , 37       , 38       , 39       , 40       , 41       , 42       ,          43         , 44       , 85     ,
+  104      , 45       , 46       , 47       , 48       , 49       , 50       , 51       , 52       , 53       , 54       , 55       ,          56         , 57       , 58       , 84     ,
+  105      , 59       , 60       , 61       ,                                  62                                        , 63       , 64       , 65       , 66       , 67       , 83     ,
+             68       , 69       , 70       , 71       , 72       , 73       , 74       , 75       , 76       , 77       , 78       , 79       , 80       , 81       , 82
+]
 
+/**
 
-// edges
-// [layer, keyid, flag]
-const e = {
-  // top row
-  n01: [3, 100],
-  n02: [3, 99],
-  n03: [3, 98],
-  n04: [3, 97],
-  n05: [2, 96],
-  n06: [2, 95],
-  n07: [2, 94],
-  n08: [2, 93],
-  n09: [2, 92],
-  n10: [2, 91],
-  n11: [2, 90],
-  n12: [2, 89],
-  n13: [2, 88],
-  // sides
-  n14: [3, 101],
-  n15: [2, 87],
-  n16: [3, 102],
-  n17: [2, 86],
-  n18: [3, 103],
-  n19: [2, 85],
-  n20: [3, 104],
-  n21: [2, 84],
-  n22: [3, 105],
-  n23: [2, 83],
-  // bottom row
-  n24:  [2, 68],
-  n25:  [2, 69],
-  n26:  [2, 70],
-  n27:  [2, 71],
-  n28:  [2, 72],
-  n29:  [2, 73],
-  n30:  [2, 74],
-  n31:  [2, 75],
-  n32:  [2, 76],
-  n33:  [2, 77],
-  n34:  [2, 78],
-  n35:  [2, 79],
-  n36:  [2, 80],
-  n37:  [2, 81],
-  n39:  [2, 82],
-}
-
-const ______ = null
+ */
 const makeFlag = (val) => Math.pow(2, (val - 1) % 32)
 
-const keymap = [
-    k.esc , k.n1  , k.n2  , k.n3  , k.n4  , k.n5  , k.n6  , k.n7  , k.n8  , k.n9  , k.n0  , k.dash, k.eqal, k.bksp, k.del ,
-    k.tab , k.q   , k.w   , k.e   , k.r   , k.t   , k.y   , k.u   , k.i   , k.o   , k.p   , k.obrk, k.cbrk, k.bslh, k.home,
-    k.caps, k.a   , k.s   , k.d   , k.f   , k.g   , k.h   , k.j   , k.k   , k.l   , k.coln, k.quot,     k.entr    , k.pgup,
-    k.lshf, k.z   , k.x   , k.c   , k.v   , k.b   , k.n   , k.m   , k.comm, k.perd, k.fslh,     k.rshf    , k.arru, k.pgdn,
-    k.lfn , k.lalt, k.lcmd,                    k.spce,                     k.rcmd, k.rfn  ,         k.arrl, k.arrd, k.arrr,
-].map((key) => [key[0], key[1], makeFlag(key[1])])
-
-// const keymap =
-// [
-//   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
-//   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
-//   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,     ______    , ______,
-//   ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,    ______     , ______, ______,
-//   ______, ______, ______,                    ______,                    ______, ______  ,         ______, ______, ______,
-// ]
-
-const edgemap = [
-         e.n01, e.n02, e.n03, e.n04, e.n05, e.n06, e.n07, e.n08, e.n09, e.n10, e.n11, e.n12, e.n13,
-  e.n14,                                                                                            e.n15,
-  e.n16,                                                                                            e.n17,
-  e.n18,                                                                                            e.n19,
-  e.n20,                                                                                            e.n21,
-  e.n22,                                                                                            e.n23,
-  e.n24, e.n25, e.n26, e.n27, e.n28, e.n29, e.n30, e.n31, e.n32, e.n33, e.n34, e.n35, e.n36, e.n37, e.n39
-].map((key) => [key[0], key[1], makeFlag(key[1])])
-
-const leds = keymap.concat(edgemap)
-
-const r0Max = leds.filter((led) => led[0] === 0).reduce((total, incr) => total += incr[2], 0);
-const r1Max = leds.filter((led) => led[0] === 1).reduce((total, incr) => total += incr[2], 0);
-const r2Max = leds.filter((led) => led[0] === 2).reduce((total, incr) => total += incr[2], 0);
-const r3Max = leds.filter((led) => led[0] === 3).reduce((total, incr) => total += incr[2], 0);
-
-const makeConfig = (color) => {
-  const props = []
-
-  if (typeof color.flags === 'string') {
-    props.push(`.flags = ${color.flags}`)
+/**
+ * Gets the range that the key index belongs to
+ *
+ * The keyboard LEDs are split into 4 ranges (0, 1, 2, 3).
+ * Ranges 0, 1, and 2 have a max value of 4294967295, and
+ * range 3 has a max value of 511 because it has less LEDs
+ */
+const getRange = (val) => {
+  if (val <= 32) {
+    return 0
+  } else if (val <= 64) {
+    return 1
+  } else if (val <= 96) {
+    return 2
   }
 
-  if (typeof color.layer === 'number') {
-    props.push(`.layer = ${color.layer}`)
-  }
+  return 3
+}
 
-  const regions = color.regions || { r0: 0, r1: 0, r2: 0, r3: 0 }
-  const setFlag = (key) => {
-    regions[`r${key[0]}`] += key[2]
-  }
+const FLAGS_RGB = 'LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB'
+const FLAGS_STATIC_PATTERN = 'LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN'
+const FLAGS_USER_CHOSEN_PATTERN = 'LED_FLAG_MATCH_LAYER | LED_FLAG_USE_ROTATE_PATTERN'
+const USER_CHOSEN_PATTERN = '#pppppp'
+const STATIC_PATTERN = '#pppp'
+const OFF = '#000000'
+const SHORTHAND_HEX_EXPRESSION = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
+const PARSE_HEX_EXPRESSION = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i
 
-  if (Array.isArray(color.keys)) {
-    color.keys
-      .filter((key) => key)
-      .map((key) => [key[0], key[1], makeFlag(key[1])])
-      .forEach(setFlag)
-  }
+const setConfig = (input, existing) => {
+  const { idx, flags, patternId, rgb } = input
+  const ranges = existing && Array.isArray(existing.ranges) ? existing.ranges : [0, 0, 0, 0]
 
-  if (Array.isArray(color.edges)) {
-    color.edges
-      .filter((key) => key)
-      .map((key) => [key[0], key[1], makeFlag(key[1])])
-      .forEach(setFlag)
-  }
+  const keyIndex = keymap[idx]
+  const rangeId = getRange(keyIndex)
+  const flag = makeFlag(keyIndex)
 
-  for (i = 0; i < 4; i += 1) {
-    if (regions[`r${i}`] > 0) {
-      props.push(`.id${i} = ${regions[`r${i}`]}`)
-    }
-  }
-
-  if (color.rgb) {
-    props.push(`.r = ${color.rgb.r}`)
-    props.push(`.g = ${color.rgb.g}`)
-    props.push(`.b = ${color.rgb.b}`)
-  }
-
-  if (typeof color.patternId === 'number') {
-    props.push(`.pattern_id = ${color.patternId}`)
-  }
+  ranges[rangeId] += flag
 
   return {
-    comment: color.comment,
-    config: `{ ${props.join(', ')} }`,
-    regions
+    flags,
+    ranges,
+    patternId,
+    rgb
   }
 }
+
+/**
+ * Either returns the given hex, or expands it if it's shorthand
+ *
+ * i.e. '#0034fe' => '#0034fe'
+ * i.e. '#03f'    => '#0033ff'
+ */
+const ensureHexLength = (hex) => hex.replace(SHORTHAND_HEX_EXPRESSION, (m, r, g, b) => {
+  return '#' + r + r + g + g + b + b;
+})
+
+function RGB (parsed) {
+  return parsed ? {
+    r: parseInt(parsed[1], 16),
+    g: parseInt(parsed[2], 16),
+    b: parseInt(parsed[3], 16)
+  } : null
+}
+
+const hexToRgb = (hex) => new RGB(PARSE_HEX_EXPRESSION.exec(ensureHexLength(hex)))
+
+const byConfigType = (a, b) => {
+  // order must be user chosen pattern, then static patterns, then RGB
+  // (and I like off being last as personal preference)
+
+  if (
+    a === USER_CHOSEN_PATTERN ||
+    (a.startsWith(STATIC_PATTERN) && b !== USER_CHOSEN_PATTERN) ||
+    b === OFF
+  ) {
+    return -1
+  } else if (
+    b === USER_CHOSEN_PATTERN ||
+    (b.startsWith(STATIC_PATTERN) && a !== USER_CHOSEN_PATTERN) ||
+    a === OFF
+  ) {
+    return 1
+  }
+
+  return 0
+}
+
+const hasRegions = (arr) => {
+  return arr[0] > 0 || arr[1] > 0 || arr[2] > 0 || arr[3] > 0
+}
+
+const makeC = (layer, config) => {
+  const parts = []
+
+  parts.push(`.flags = ${config.flags}`)
+  parts.push(`.layer = ${layer.layer}`)
+  config.ranges.forEach((range, idx) => {
+    if (range > 0) {
+      parts.push(`.id${idx} = ${range}`)
+    }
+  })
+
+  if (config.patternId) {
+    parts.push(`.pattern_id = ${config.patternId}`)
+  }
+
+  if (config.rgb) {
+    parts.push(`.r = ${config.rgb.r}`)
+    parts.push(`.g = ${config.rgb.g}`)
+    parts.push(`.b = ${config.rgb.b}`)
+  }
+
+  return `{ ${parts.join(', ')} }`
+}
+
 
 const makeLayer = (layer) => {
-  const configs = layer.configs.map((config) => makeConfig({ ...config, ...{ layer: layer.layer } }))
+  const configs = {}
 
-  if (layer.remainder) {
-    const regions = { r0: r0Max, r1: r1Max, r2: r2Max, r3: r3Max };
+  layer.leds.forEach((led, idx) => {
+    const keyIndex = keymap[idx]
+    const range = getRange(keyIndex)
+    const flag = makeFlag(keyIndex)
 
-    configs.forEach((made) => {
-      regions.r0 -= made.regions.r0;
-      regions.r1 -= made.regions.r1;
-      regions.r2 -= made.regions.r2;
-      regions.r3 -= made.regions.r3;
+    if (led && led === USER_CHOSEN_PATTERN) {
+      configs[led] = setConfig({ idx, flags: FLAGS_USER_CHOSEN_PATTERN }, configs[led])
+    } else if (led && led.startsWith(STATIC_PATTERN) && led.length > STATIC_PATTERN.length) {
+      const num = parseInt(led.substring(STATIC_PATTERN.length))
+
+      if (!isNaN(num)) {
+        configs[led] = setConfig({ idx, flags: FLAGS_STATIC_PATTERN, patternId: num }, configs[led])
+      }
+    } else if (led) {
+      configs[led] = setConfig({ idx, flags: FLAGS_RGB, rgb: hexToRgb(led) }, configs[led])
+    }
+  })
+
+  return Object.keys(configs)
+    .sort(byConfigType)
+    .map((key) => {
+      // add config string
+
+      const config = { ...configs[key], ...{ key } }
+      config.c = makeC(layer, config)
+
+      return config
     })
-
-    configs.push(makeConfig({ ...layer.remainder, ...{ regions, layer: layer.layer } }))
-  }
-
-  return { comment: layer.comment, configs }
 }
 
-module.exports = {
-  k,
-  e,
-  _____: ______,
-  ______,
-  makeLayer
-}
+module.exports = { makeLayer }
