@@ -369,6 +369,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         case CKC_MIC:
           if (record->event.pressed) {
+            // zoom mic on/off keystroke
             SEND_STRING(SS_LGUI(SS_LSFT("a")));
           }
         default:
