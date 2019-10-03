@@ -21,6 +21,10 @@ git clone --recurse-submodules git@github.com:losandes/qmk_firmware.git
 ## Installation
 
 ```Shell
+brew install nvm
+nvm install --lts
+nvm alias default node
+
 brew install pyenv
 pyenv install 3.7.4
 
@@ -48,6 +52,16 @@ rm massdrop_alt_mac_losandes.bin
 make clean
 make massdrop/alt:mac_losandes
 ```
+
+## Configuring the LEDS
+This keymap has a NodeJS LED configurator. You can copy and modify the `./led-layers.js` file to make an LED map. The map is simply an array that I defined with delimiters that mock the physical layout. It's the integer indexes, and the values that are actually consumed by `./led-maps.js`. The mapper accepts 4 types of values:
+
+* falsey (i.e. `null`, `0`, or `false`) - the mapper will ignore any indexes that are falsey
+* '#pppppp' - use the user's chosen pattern (`LED_FLAG_USE_ROTATE_PATTERN`)
+* '#pppp00' - use a specific pattern (where 00 is that `.pattern_id` - an integer between 0 and the max pattern id, which is 10 at the time of writing)
+* '#ffffff' - any hex color value
+
+Once you configure your layers, run `node led-layers.js`. It will print an `led_instructions` function that you can copy and paste into your `keymap.c`.
 
 ## Reference
 

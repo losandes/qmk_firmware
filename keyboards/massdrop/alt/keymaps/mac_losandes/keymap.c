@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "config.h"
 #include "led_matrix.h"
+#include "my_led_programs.c"
 
 enum alt_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase
@@ -60,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            DBG_FAC,                            _______, _______, KC_HOME, L_BRD,   KC_END    \
     ),
     [2] = LAYOUT(
-        _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CKC_MIC,  \
+        _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , CKC_MIC,  \
         _______, _______, KC_MS_U, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC__MUTE, \
         KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU,  \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD,  \
@@ -84,6 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
+// This assumes there are 11 values in the `led_setups` array
+// in 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix_programs.c'
+uint8_t my_led_setups_count = 11;
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
   led_animation_id = 1;      // initial background color
@@ -93,6 +98,21 @@ void matrix_init_user(void) {
   led_animation_direction = 0;
   led_animation_orientation = 0;
   led_animation_circular = 1;
+
+  // There are a max of 10 led_setups that can be overridden
+  // led_setups is defined in 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix_programs.c'
+  // and consumed by 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix.c'
+  led_setups[0] = leds_rainbow_s_override;
+  led_setups[1] = leds_rainbow_ns_override;
+  led_setups[2] = leds_purple;
+  led_setups[3] = leds_teal_salmon_override;
+  led_setups[4] = leds_green_override;
+  led_setups[5] = leds_irish_s;
+  led_setups[6] = led_purple_rainbow_s;
+  led_setups[7] = leds_bwo_s;
+  led_setups[8] = leds_rainbow_burst_s;
+  led_setups[9] = leds_trolls_dance_party_s;
+  led_setups[10] = leds_off_override;
 };
 
 // Runs constantly in the background, in a loop.
@@ -142,16 +162,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (led_edge_brightness < 0) { led_edge_brightness = 0; }
             }
             return false;
-        case L_PTN:
-            if (record->event.pressed) {
-                if (led_animation_id == led_setups_count - 1) led_animation_id = 0;
-                else led_animation_id++;
-            }
-            return false;
         case L_PTP:
             if (record->event.pressed) {
-                if (led_animation_id == 0) led_animation_id = led_setups_count - 1;
+                if (led_animation_id == 0) led_animation_id = my_led_setups_count - 1;
                 else led_animation_id--;
+            }
+            return false;
+        case L_PTN:
+            if (record->event.pressed) {
+                if (led_animation_id == my_led_setups_count - 1) led_animation_id = 0;
+                else led_animation_id++;
             }
             return false;
         case L_PSI:
@@ -349,6 +369,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
         case CKC_MIC:
           if (record->event.pressed) {
+            // zoom mic on/off keystroke
             SEND_STRING(SS_LGUI(SS_LSFT("a")));
           }
         default:
@@ -360,138 +381,22 @@ led_instruction_t led_instructions[] = {
   //All LEDs use the user's selected pattern (this is the factory default)
   { .flags = LED_FLAG_USE_ROTATE_PATTERN },
 
-  // Layer 0: Default Layer
-  // ========================================================================
-  // vim mode
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 0, .id1 = 240, .r = 127, .g = 0, .b = 255 },
-
-  // Layer 1: LEDs & Fns
-  // ========================================================================
-  // led preview (edges)
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_USE_ROTATE_PATTERN, .layer = 1, .id2 = 4294967288, .id3 = 511 },
-  // led controls
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN, .layer = 1, .id0 = 2147483648, .id1 = 50348032, .id2 = 2, .pattern_id = 0 },
-  // red delete
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
-  // blue power
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN, .layer = 1, .id0 = 2147483648, .id1 = 50348034, .id2 = 2 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 16385, .r = 0, .g = 0, .b = 255 },
-  // purple MO(1)
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8190, .r = 254, .g = 119, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id1 = 67108864, .r = 127, .g = 0, .b = 255 },
-  // golden F[n] keys
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8190, .r = 255, .g = 119, .b = 0 },
-  // off MO(1)
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 2147450880, .id1 = 4177510399, .id2 = 5, .r = 0, .g = 0, .b = 0 },
-
-  // Layer 2: Mouse & Media
-  // ========================================================================
-  // edges, mouse and media keys
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 3758243840, .id1 = 536875011, .id2 = 4294967293, .id3 = 511, .r = 30, .g = 136, .b = 230 },
-  // purple MO(2)
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 2147450880, .id1 = 4177510397, .id2 = 5, .r = 0, .g = 0, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 3758243840, .id1 = 570427395, .id2 = 4294967293, .id3 = 511, .r = 30, .g = 136, .b = 229 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id1 = 2147483648, .r = 127, .g = 0, .b = 255 },
-  // off MO(2)
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 536723455, .id1 = 1610608636, .id2 = 2, .r = 0, .g = 0, .b = 0 },
-
-  // Layer 3: App Hotkeys
-  // ========================================================================
-  // golden App keys
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 9437214, .id1 = 1744901, .id2 = 4294967288, .id3 = 511, .r = 255, .g = 119, .b = 0 },
-  // purple MO(3)
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 536715263, .id1 = 1577056252, .id2 = 2, .r = 0, .g = 0, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 9437214, .id1 = 1744901, .id2 = 4294967288, .id3 = 511, .r = 254, .g = 119, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id1 = 1073741824, .r = 127, .g = 0, .b = 255 },
-  // off MO(3)
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 4285530081, .id1 = 3219480570, .id2 = 7, .r = 0, .g = 0, .b = 0 },
 
   //end must be set to 1 to indicate end of instruction set
   { .end = 1 }
 };
-
-// led_instruction_t led_instructions[] = {
-//     //Please see ../default_md/keymap.c for examples
-//
-//     //All LEDs use the user's selected pattern (this is the factory default)
-//     { .flags = LED_FLAG_USE_ROTATE_PATTERN },
-//
-//     // Selected LEDs Match a given pattern:
-//     // pattern_ids:
-//     // 0 scrolling rainbow
-//     // 1 static rainbow
-//     // 2 teal => salmon gradient
-//     // 3 spring green
-//     // 4 red
-//     // 5 green
-//     // 6 blue
-//     // 7 white
-//     // 8 knight rider (white bg)
-//     // 9 knight rider (black bg)
-//     // 10 off
-//     // { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN, .layer = 3, .pattern_id = 0, .id0 = 10486782, .id1 = 1744901 },
-//
-//     //All LEDs use the user's selected pattern
-//     //On layer 1, all key LEDs (except the top row which keeps active pattern) are red while all edge LEDs are green
-//     //When layer 1 is active, key LEDs use red    (id0  32 -  16: 1111 1111 1111 1111 1000 0000 0000 0000 = 0xFFFF8000) (except top row 15 - 1)
-//     //When layer 1 is active, key LEDs use red    (id1  64 -  33: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
-//     //When layer 1 is active, key LEDs use red    (id2  67 -  65: 0000 0000 0000 0000 0000 0000 0000 0111 = 0x00000007)
-//     //When layer 1 is active, edge LEDs use green (id2  95 -  68: 1111 1111 1111 1111 1111 1111 1111 1000 = 0xFFFFFFF8)
-//     //When layer 1 is active, edge LEDs use green (id3 105 -  96: 0000 0000 0000 0000 0000 0011 1111 1111 = 0x000003FF)
-//     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id0 = 0xFFFF8000, .id1 = 0xFFFFFFFF, .id2 = 0x00000007, .r = 255, .layer = 1 },
-//     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB, .id2 = 0xFFFFFFF8, .id3 = 0x000003FF, .g = 127, .layer = 1 },
-//
-//     //All key LEDs use red while edge LEDs use the active pattern
-//     //All key LEDs use red     (id0  32 -   1: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
-//     //All key LEDs use red     (id1  64 -  33: 1111 1111 1111 1111 1111 1111 1111 1111 = 0xFFFFFFFF)
-//     //All key LEDs use red     (id2  67 -  65: 0000 0000 0000 0000 0000 0000 0000 0111 = 0x00000007)
-//     //Edge uses active pattern (id2  95 -  68: 1111 1111 1111 1111 1111 1111 1111 1000 = 0xFFFFFFF8)
-//     //Edge uses active pattern (id3 105 -  96: 0000 0000 0000 0000 0000 0011 1111 1111 = 0x000003FF)
-//     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .id0 = 0xFFFFFFFF, .id1 = 0xFFFFFFFF, .id2 = 0x00000007, .r = 255 },
-//     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_USE_ROTATE_PATTERN , .id2 = 0xFFFFFFF8, .id3 = 0x000003FF },
-//
-//
-//     // Layer 0
-//     // ========================================================================
-//     // purple
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 0, .id1 = 240, .r = 127, .g = 0, .b = 255 },
-//
-//     // Layer 1
-//     // ========================================================================
-//     // rainbow ("a", "x")
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN, .layer = 1, .id0 = 2147483648, .id1 = 16793600, .pattern_id = 0 },
-//     // match pattern ("edges")
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_USE_ROTATE_PATTERN,              .layer = 1, .id2 = 4294967288, .id3 = 511 },
-//     // red ("backspace")
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,     .layer = 1, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
-//     // blue ("esc", "tick")
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,     .layer = 1, .id0 = 16385, .r = 0, .g = 0, .b = 255 },
-//     // purple ("fn")
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,     .layer = 1,                    .id1 = 67108864, .r = 127, .g = 0, .b = 255 },
-//     // gold
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,     .layer = 1, .id0 = 8190, .r = 254, .g = 119, .b = 0 },
-//     // off
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,     .layer = 1, .id0 = 2147450880, .id1 = 4227842047, .id2 = 7, .r = 0,  .g = 0,   .b = 0 },
-//
-//     // Layer 2 Media + Mouse
-//     // ========================================================================
-//     // blue
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 2, .id0 = 3758243840, .id1 = 570427395,  .id2 = 4294967288, .id3 = 511, .r = 30, .g = 136, .b = 230 },
-//     // purple
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 2, .id1 = 2147483648, .r = 127, .g = 0, .b = 255 },
-//     // off
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 2, .id0 = 536723455,  .id1 = 1577056252, .id2 = 7, .r = 0,  .g = 0,   .b = 0   },
-//
-//
-//     // Layer 3 App Keys
-//     // ========================================================================
-//     // gold
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 3, .id0 = 10485790,   .id1 = 1744901, .id2 = 4294967288, .id3 = 511, .r = 254, .g = 119, .b = 0 },
-//     // purple
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 3, .id1 = 1073741824, .r = 127, .g = 0, .b = 255 },
-//     // off
-//     { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 3, .id0 = 4284481505, .id1 = 3219480570, .id2 = 7, .r = 0,   .g = 0,   .b = 0 },
-//
-//     // { .flags = LED_FLAG_MATCH_ID | LED_FLAG_MATCH_LAYER | LED_FLAG_USE_RGB,  .layer = 3, .id0 = 10486782, .id1 = 1744901 },
-//     // { .flags = LED_FLAG_MATCH_LAYER, .layer = 3 },
-//     // { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 3, .id0 = 10486782, .id1 = 1744901, .r = 254, .g = 119, .b = 0 },
-//     // { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB,  .layer = 3, .id0 = 10486782, .id1 = 1744901, .rs = 255, .re = 0, .gs = 119, .ge = 255, .bs = 0, .be = 0, .ef = EF_OVER | EF_SCR_R },
-//     // { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN, .layer = 3, .pattern_id = 0, .id0 = 10486782, .id1 = 1744901 },
-//
-//     //end must be set to 1 to indicate end of instruction set
-//      { .end = 1 }
-// };
