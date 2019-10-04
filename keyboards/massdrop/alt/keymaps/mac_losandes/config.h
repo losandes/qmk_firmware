@@ -9,3 +9,5 @@
 #define APP_MAL               "Mail.app"
 #define APP_CAL               "Calendar.app"
 #define APP_ZOM               "zoom.us.app"
+
+#define TAPPING_TOGGLE 2          //2 taps for TT (double-tap to toggle layer)
