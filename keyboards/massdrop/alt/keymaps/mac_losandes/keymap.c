@@ -319,7 +319,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
           }
         case CKC_BRS:
-          if (record->event.pressed) {
+          if (record->event.pressed && MOD_LGUI) {
+            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+            send_string(APP_BRS_ALT);
+            SEND_STRING(SS_TAP(X_ENTER));
+            return false;
+          } else if (record->event.pressed) {
             SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
             send_string(APP_BRS);
             SEND_STRING(SS_TAP(X_ENTER));
