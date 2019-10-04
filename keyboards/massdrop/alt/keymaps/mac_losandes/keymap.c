@@ -68,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            KC_BTN1,                            _______, _______, KC_MRWD, _______, KC_MFFD   \
     ),
     [3] = LAYOUT(
-        _______, CKC_DS1, CKC_DS2, CKC_IDE, CKC_TRM, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, CKC_TRM, _______, _______, CKC_IDE, _______, _______, _______, _______, _______, _______, \
-        _______, _______, CKC_SLK, _______, CKC_FND, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
-        _______, CKC_ZOM, _______, CKC_CAL, _______, CKC_BRS, _______, CKC_MSG, CKC_MAL, _______, _______, _______,          _______, _______, \
+        _______, CKC_DS1, CKC_DS2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, _______, _______, _______, _______, CKC_TRM, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, CKC_IDE, CKC_SLK, _______, CKC_FND, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
+        _______, CKC_ZOM, _______, CKC_CAL, _______, CKC_BRS, _______, CKC_MSG, CKC_MAL, _______, CKC_TRM, CKC_IDE,          _______, _______, \
         _______, _______, KC_LGUI,                   _______,                            _______, _______, _______, _______, _______  \
     ),
     /*
@@ -332,7 +332,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
           }
         case CKC_SLK:
-          if (record->event.pressed && MODS_GUI) {
+           if (record->event.pressed && MODS_GUI) {
             SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
             send_string(APP_BRS_ALT);
             SEND_STRING(SS_TAP(X_ENTER));
@@ -405,13 +405,13 @@ led_instruction_t led_instructions[] = {
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id1 = 67108864, .r = 127, .g = 0, .b = 255 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 2147450880, .id1 = 4177510397, .id2 = 5, .r = 0, .g = 0, .b = 0 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 3758243840, .id1 = 570427395, .id2 = 4294967293, .id3 = 511, .r = 30, .g = 136, .b = 229 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 3791798272, .id1 = 570427395, .id2 = 4294967293, .id3 = 511, .r = 30, .g = 136, .b = 229 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id1 = 2147483648, .r = 127, .g = 0, .b = 255 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 536715263, .id1 = 1577056252, .id2 = 2, .r = 0, .g = 0, .b = 0 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 9437214, .id1 = 1744901, .id2 = 4294967288, .id3 = 511, .r = 254, .g = 119, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 503160831, .id1 = 1577056252, .id2 = 2, .r = 0, .g = 0, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2148532230, .id1 = 14327813, .id2 = 4294967288, .id3 = 511, .r = 254, .g = 119, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id1 = 1073741824, .r = 127, .g = 0, .b = 255 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 4285530081, .id1 = 3219480570, .id2 = 7, .r = 0, .g = 0, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2146435065, .id1 = 3206897658, .id2 = 7, .r = 0, .g = 0, .b = 0 },
 
   //end must be set to 1 to indicate end of instruction set
   { .end = 1 }
