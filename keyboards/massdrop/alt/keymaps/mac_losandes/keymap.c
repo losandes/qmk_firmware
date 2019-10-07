@@ -93,7 +93,7 @@ uint8_t my_led_setups_count = 11;
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-  led_animation_id = 1;      // initial background color
+  led_animation_id = 0;      // initial background color
   gcr_desired = 20;          // set the default brightness (GCR increment/decrement value is 10 per step, 0 is off)
   led_edge_brightness = 0.1; // set the default edge brightness to be less bright than default
   // set the default color pattern (L_T_PTD)
@@ -104,25 +104,35 @@ void matrix_init_user(void) {
   // There are a max of 10 led_setups that can be overridden
   // led_setups is defined in 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix_programs.c'
   // and consumed by 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix.c'
-  led_setups[0] = leds_rainbow_s_override;
-  led_setups[1] = leds_rainbow_ns_override;
-  led_setups[2] = leds_purple;
-  led_setups[3] = leds_teal_salmon_override;
-  led_setups[4] = leds_green_override;
-  led_setups[5] = leds_irish_s;
-  led_setups[6] = led_purple_rainbow_s;
-  led_setups[7] = leds_bwo_s;
-  led_setups[8] = leds_rainbow_burst_s;
-  led_setups[9] = leds_trolls_dance_party_s;
-  led_setups[10] = leds_off_override;
+  led_setups[0]  = leds_off_override;
+  led_setups[1]  = leds_rainbow_s_override;
+  led_setups[2]  = leds_rainbow_ns_override;
+  led_setups[3]  = leds_purple;
+  led_setups[4]  = leds_teal_salmon_override;
+  led_setups[5]  = leds_green_override;
+  led_setups[6]  = leds_irish_s;
+  led_setups[7]  = led_purple_rainbow_s;
+  led_setups[8]  = leds_bwo_s;
+  led_setups[9]  = leds_rainbow_burst_s;
+  led_setups[10] = leds_trolls_dance_party_s;
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+
 };
 
-bool open_app(keyrecord_t *record, char *appname) {
-  if (record->event.pressed) {
+#define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_ALT (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
+#define MODS_GUI (get_mods() & MOD_BIT(KC_LGUI) || get_mods() & MOD_BIT(KC_RGUI))
+
+bool open_app(keyrecord_t *record, char *appname, char *altappname) {
+  if (record->event.pressed && MODS_GUI) {
+    SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+    send_string(altappname);
+    SEND_STRING(SS_TAP(X_ENTER));
+  } else if (record->event.pressed) {
     SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
     send_string(appname);
     SEND_STRING(SS_TAP(X_ENTER));
@@ -131,16 +141,33 @@ bool open_app(keyrecord_t *record, char *appname) {
   return false;
 };
 
-#define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
-#define MODS_ALT (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
-#define MODS_GUI (get_mods() & MOD_BIT(KC_LGUI) || get_mods() & MOD_BIT(KC_RGUI))
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
     static uint8_t scroll_effect = 0;
 
     switch (keycode) {
+        // losandes keycodes start here
+        // ====================================================================
+        case CKC_IDE:
+          return open_app(record, APP_IDE_AT, APP_IDE_VS);
+        case CKC_TRM:
+          return open_app(record, APP_TRM, NOALT__);
+        case CKC_BRS:
+          return open_app(record, APP_BRS_FF, APP_BRS_SA);
+        case CKC_SLK:
+          return open_app(record, APP_SLK, APP_BRS_SA);
+        case CKC_FND:
+          return open_app(record, APP_FND, APP_BRS_FF);
+        case CKC_MSG:
+          return open_app(record, APP_MSG, NOALT__);
+        case CKC_MAL:
+          return open_app(record, APP_MAL, NOALT__);
+        case CKC_CAL:
+          return open_app(record, APP_CAL, NOALT__);
+        case CKC_ZOM:
+          return open_app(record, APP_ZOM, NOALT__);
+        // massdrop alt keycodes start here
+        // ====================================================================
         case L_BRI:
             if (record->event.pressed) {
                 if (LED_GCR_STEP > LED_GCR_MAX - gcr_desired) gcr_desired = LED_GCR_MAX;
@@ -305,38 +332,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        // losandes keycodes start here
-        // ====================================================================
-        case CKC_IDE:
-          return open_app(record, APP_IDE);
-        case CKC_TRM:
-          return open_app(record, APP_TRM);
-        case CKC_MSG:
-          return open_app(record, APP_MSG);
-        case CKC_MAL:
-          return open_app(record, APP_MAL);
-        case CKC_CAL:
-          return open_app(record, APP_CAL);
-        case CKC_ZOM:
-          return open_app(record, APP_ZOM);
-        case CKC_BRS:
-          if (record->event.pressed && MODS_GUI) {
-            return open_app(record, APP_BRS_ALT);
-          }
-
-          return open_app(record, APP_BRS);
-        case CKC_SLK:
-          if (record->event.pressed && MODS_GUI) {
-            return open_app(record, APP_BRS_ALT);
-          }
-
-          return open_app(record, APP_SLK);
-        case CKC_FND:
-          if (record->event.pressed && MODS_GUI) {
-            return open_app(record, APP_BRS);
-          }
-
-          return open_app(record, APP_FND);
         default:
             return true; //Process all other keycodes normally
     }
