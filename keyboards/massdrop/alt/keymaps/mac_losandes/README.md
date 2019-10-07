@@ -63,6 +63,10 @@ This keymap has a NodeJS LED configurator. You can copy and modify the `./led-la
 
 Once you configure your layers, run `node led-layers.js`. It will print an `led_instructions` function that you can copy and paste into your `keymap.c`.
 
+![configuring-leds](https://www.dropbox.com/s/38mlpbwdzf6qybe/led-configurator.png?dl=0&raw=1)
+
+The above screenshot is using [atom](https://ide.atom.io/) with the [pigments](https://atom.io/packages/pigments) extension to highlight the colors.
+
 ## Reference
 
 * [Spreadsheet to help calculate bitwise ids for individual keys](https://docs.google.com/spreadsheets/d/1bsaMF4qmJNhvqlxmHmaXnhs7gung7_A0EqAyjStg_7U/edit?usp=sharing) (by @lastcontinue,famguy07, pleasuretek)
