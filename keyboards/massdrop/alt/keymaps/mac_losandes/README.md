@@ -51,13 +51,22 @@ This keymap has a NodeJS LED configurator. You can copy and modify the `./led-la
 * '#pppp00' - use a specific pattern (where 00 is that `.pattern_id` - an integer between 0 and the max pattern id, which is 10 at the time of writing)
 * '#ffffff' - any hex color value
 
-Once you configure your layers, run `node led-layers.js`. It will print an `led_instructions` function that you can copy and paste into your `keymap.c`.
+Once you configure your layers, run:
+
+```Shell
+$ node led-layers.js
+```
+
+That should print an `led_instructions` function to your terminal that you can copy and paste into your `keymap.c`.
 
 ![configuring-leds](https://www.dropbox.com/s/38mlpbwdzf6qybe/led-configurator.png?dl=0&raw=1)
 
-The above screenshot is using [atom](https://ide.atom.io/) with the [pigments](https://atom.io/packages/pigments) extension to highlight the colors. If you're using Visual Studio Code, the [vscode-pigments](https://marketplace.visualstudio.com/items?itemName=jaspernorth.vscode-pigments) extension supports the same visualization.
+> The above screenshot is using [atom](https://ide.atom.io/) with the [pigments](https://atom.io/packages/pigments) extension to highlight the colors. If you're using Visual Studio Code, the [vscode-pigments](https://marketplace.visualstudio.com/items?itemName=jaspernorth.vscode-pigments) extension supports the same visualization.
+>
+> NOTE - I'm overriding all of the default patterns in this keymap. I'm not a fan of modifying the code that I fork, and prefer to extend it instead (Open/Closed Principle). Being new to TMK, QMK, and Massdrop's fork, I wasn't sure how to simply add or replace patterns through extension, so I ended up adding my own programs file, and updating the values of the `led_setups` array. If you know a better way to do this, please open an Issue and tell me about it :)
 
 ## Reference
 
-* [Spreadsheet to help calculate bitwise ids for individual keys](https://docs.google.com/spreadsheets/d/1bsaMF4qmJNhvqlxmHmaXnhs7gung7_A0EqAyjStg_7U/edit?usp=sharing) (by @lastcontinue,famguy07, pleasuretek)
+* [Spreadsheet to help calculate bitwise ids for individual keys](https://docs.google.com/spreadsheets/d/1bsaMF4qmJNhvqlxmHmaXnhs7gung7_A0EqAyjStg_7U/edit?usp=sharing) (by @lastcontinue, famguy07, pleasuretek)
 * [QMK keymap list of keycodes](https://github.com/qmk/qmk_firmware/blob/master/docs/keycodes.md)
+* [Docs on keycodes](https://beta.docs.qmk.fm/features/keycodes_basic)
