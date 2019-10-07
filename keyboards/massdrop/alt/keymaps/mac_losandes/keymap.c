@@ -27,8 +27,6 @@ enum alt_keycodes {
     DBG_FAC,            //DEBUG Factory light testing (All on white)
     MD_BOOT,            //Restart into bootloader after hold timeout
     // losandes keycodes start here
-    CKC_DS1,            //Desktop 1
-    CKC_DS2,            //Desktop 2
     CKC_IDE,            //Macos Open IDE
     CKC_TRM,            //Macos Open Terminal
     CKC_BRS,            //Macos Open Browser
@@ -38,20 +36,24 @@ enum alt_keycodes {
     CKC_MAL,            //Macos Open Mail
     CKC_CAL,            //Macos Open Calendar
     CKC_ZOM,            //Macos Open ZOOM
-    CKC_MIC,            //Zoom Toggle Mic
 };
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
+#define SPOTLTE LGUI(KC_SPC)
+#define CTL_CAP CTL_T(KC_CAPS)
+#define DESKTP1 LCTL(KC_1)
+#define DESKTP2 LCTL(KC_2)
+#define ZOM_MIC LSFT(LGUI(KC_A))
 
 keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_GESC,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
-        KC_TAB,         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_BSLS, \
-        CTL_T(KC_CAPS), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
-        KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
-        TT(1),          KC_LALT, KC_LGUI,                            KC_SPC,                             TT(3),   TT(2),   KC_LEFT, KC_DOWN, KC_RGHT  \
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_BSLS, \
+        CTL_CAP, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
+        TT(1),   KC_LALT, KC_LGUI,                            KC_SPC,                             TT(3),   TT(2),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     [1] = LAYOUT(
         MD_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_PWR,   \
@@ -61,18 +63,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            DBG_FAC,                            _______, _______, KC_HOME, L_BRD,   KC_END    \
     ),
     [2] = LAYOUT(
-        _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , CKC_MIC,  \
+        _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , ZOM_MIC,  \
         _______, _______, KC_MS_U, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, _______, _______, _______, KC__MUTE, \
         KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU,  \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD,  \
         _______, _______, _______,                            KC_BTN1,                            _______, _______, KC_MRWD, _______, KC_MFFD   \
     ),
     [3] = LAYOUT(
-        _______, CKC_DS1, CKC_DS2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, CKC_TRM, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, DESKTP1, DESKTP2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, _______, _______, _______, _______, CKC_TRM, _______, _______, _______, _______, _______, CKC_TRM, CKC_IDE, CKC_BRS, _______, \
         _______, CKC_IDE, CKC_SLK, _______, CKC_FND, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
         _______, CKC_ZOM, _______, CKC_CAL, _______, CKC_BRS, _______, CKC_MSG, CKC_MAL, _______, CKC_TRM, CKC_IDE,          _______, _______, \
-        _______, _______, KC_LGUI,                   _______,                            _______, _______, _______, _______, _______  \
+        _______, _______, KC_LGUI,                            SPOTLTE,                            _______, _______, _______, _______, _______  \
     ),
     /*
     [X] = LAYOUT(
@@ -91,7 +93,7 @@ uint8_t my_led_setups_count = 11;
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-  led_animation_id = 1;      // initial background color
+  led_animation_id = 0;      // initial background color
   gcr_desired = 20;          // set the default brightness (GCR increment/decrement value is 10 per step, 0 is off)
   led_edge_brightness = 0.1; // set the default edge brightness to be less bright than default
   // set the default color pattern (L_T_PTD)
@@ -102,21 +104,22 @@ void matrix_init_user(void) {
   // There are a max of 10 led_setups that can be overridden
   // led_setups is defined in 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix_programs.c'
   // and consumed by 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix.c'
-  led_setups[0] = leds_rainbow_s_override;
-  led_setups[1] = leds_rainbow_ns_override;
-  led_setups[2] = leds_purple;
-  led_setups[3] = leds_teal_salmon_override;
-  led_setups[4] = leds_green_override;
-  led_setups[5] = leds_irish_s;
-  led_setups[6] = led_purple_rainbow_s;
-  led_setups[7] = leds_bwo_s;
-  led_setups[8] = leds_rainbow_burst_s;
-  led_setups[9] = leds_trolls_dance_party_s;
-  led_setups[10] = leds_off_override;
+  led_setups[0]  = leds_off_override;
+  led_setups[1]  = leds_rainbow_s_override;
+  led_setups[2]  = leds_rainbow_ns_override;
+  led_setups[3]  = leds_purple;
+  led_setups[4]  = leds_teal_salmon_override;
+  led_setups[5]  = leds_green_override;
+  led_setups[6]  = leds_irish_s;
+  led_setups[7]  = led_purple_rainbow_s;
+  led_setups[8]  = leds_bwo_s;
+  led_setups[9]  = leds_rainbow_burst_s;
+  led_setups[10] = leds_trolls_dance_party_s;
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+
 };
 
 #define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
@@ -124,11 +127,47 @@ void matrix_scan_user(void) {
 #define MODS_ALT (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 #define MODS_GUI (get_mods() & MOD_BIT(KC_LGUI) || get_mods() & MOD_BIT(KC_RGUI))
 
+bool open_app(keyrecord_t *record, char *appname, char *altappname) {
+  if (record->event.pressed && MODS_GUI) {
+    SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+    send_string(altappname);
+    SEND_STRING(SS_TAP(X_ENTER));
+  } else if (record->event.pressed) {
+    SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+    send_string(appname);
+    SEND_STRING(SS_TAP(X_ENTER));
+  }
+
+  return false;
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
     static uint8_t scroll_effect = 0;
 
     switch (keycode) {
+        // losandes keycodes start here
+        // ====================================================================
+        case CKC_IDE:
+          return open_app(record, APP_IDE_AT, APP_IDE_VS);
+        case CKC_TRM:
+          return open_app(record, APP_TRM, NOALT__);
+        case CKC_BRS:
+          return open_app(record, APP_BRS_FF, APP_BRS_SA);
+        case CKC_SLK:
+          return open_app(record, APP_SLK, APP_BRS_SA);
+        case CKC_FND:
+          return open_app(record, APP_FND, APP_BRS_FF);
+        case CKC_MSG:
+          return open_app(record, APP_MSG, NOALT__);
+        case CKC_MAL:
+          return open_app(record, APP_MAL, NOALT__);
+        case CKC_CAL:
+          return open_app(record, APP_CAL, NOALT__);
+        case CKC_ZOM:
+          return open_app(record, APP_ZOM, NOALT__);
+        // massdrop alt keycodes start here
+        // ====================================================================
         case L_BRI:
             if (record->event.pressed) {
                 if (LED_GCR_STEP > LED_GCR_MAX - gcr_desired) gcr_desired = LED_GCR_MAX;
@@ -293,101 +332,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        // losandes keycodes start here
-        // ====================================================================
-        case CKC_DS1:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("1"));
-            return false;
-          }
-        case CKC_DS2:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LCTRL("2"));
-            return false;
-          }
-        case CKC_IDE:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_IDE);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_TRM:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_TRM);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_BRS:
-          if (record->event.pressed && MODS_GUI) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_BRS_ALT);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          } else if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_BRS);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_SLK:
-           if (record->event.pressed && MODS_GUI) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_BRS_ALT);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          } else if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_SLK);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_FND:
-          if (record->event.pressed && MODS_GUI) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_BRS);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          } else if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_FND);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_MSG:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_MSG);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_MAL:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_MAL);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_CAL:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_CAL);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_ZOM:
-          if (record->event.pressed) {
-            SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-            send_string(APP_ZOM);
-            SEND_STRING(SS_TAP(X_ENTER));
-            return false;
-          }
-        case CKC_MIC:
-          if (record->event.pressed) {
-            // zoom mic on/off keystroke
-            SEND_STRING(SS_LGUI(SS_LSFT("a")));
-          }
         default:
             return true; //Process all other keycodes normally
     }
