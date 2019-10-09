@@ -47,7 +47,34 @@ enum alt_keycodes {
 
 keymap_config_t keymap_config;
 
+/* Aria Template
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+ * │   │   │   │   │   │   │   │   │   │   │   │   │   │       │   │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+ * │     │   │   │   │   │   │   │   │   │   │   │   │   │     │   │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+ * │      │   │   │   │   │   │   │   │   │   │   │   │        │   │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+ * │        │   │   │   │   │   │   │   │   │   │   │      │   │   │
+ * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+ * │    │    │    │                        │    │    │ │   │   │   │
+ * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+ */
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+   /* Layer 0: Default Layer
+    * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+    * │Esc| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | - | = | Backs │ ` │
+    * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+    * │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │ \ │
+    * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+    * │CtlCap│ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ Enter  │PgU│
+    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+    * │ Shift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │Shift │ ↑ │PgD│
+    * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+    * │Fn1 │LAlt│LCmd│         Space          │Fn3 │Fn2 │ │ ← │ ↓ │ → │
+    * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+    */
     [0] = LAYOUT(
         KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_BSLS, \
@@ -55,13 +82,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
         TT(1),   KC_LALT, KC_LGUI,                            KC_SPC,                             TT(3),   TT(2),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
+    /* Layer 1: Function Keys
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+     * │DFU│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│  Del  │Pwr│
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+     * │Breth│Sp↓│Br↑│Sp↑│Ed↑│   │   │   │GCR│   │>||│   │   │     │Mut│
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+     * │ LDir │L← │Br↓│L→ │Ed↓│   │ ← │ ↓ │ ↑ │ → │   │   │        │   │
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * │        │LMo│LOf│   │EdM│DFU│NKR│   │   │   │   │      │Br↑│LOf│
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+     * │    │    │    │         Debug          │    │    │ │Hom│Br↓│End│
+     * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+     */
     [1] = LAYOUT(
         MD_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_PWR,   \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, _______, _______, U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC__MUTE, \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, _______, _______, U_T_AGCR,_______, _______, _______, _______, _______, KC__MUTE, \
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   L_EDG_D, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______, _______,  \
         _______, L_T_MD,  L_T_ONF, _______, L_EDG_M, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______,          L_BRI,   L_T_ONF,  \
         _______, _______, _______,                            DBG_FAC,                            _______, _______, KC_HOME, L_BRD,   KC_END    \
     ),
+    /* LAYER 2: Media and Mouse
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+     * │   │   │   │   │   │   │   │   │   │   │   │   │   │  Del  │Mic│
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+     * │     │   │M↑ │   │   │   │   │   │   │   │>||│   │   │     │Mut│
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+     * │RClck │M← │M↓ │M→ │   │   │   │   │   │   │   │   │        │Vo↑│
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * │        │   │   │   │   │   │   │   │   │   │   │      │   │Vo↓│
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+     * │    │    │    │       Left Click       │    │    │ │Pre│   │Nxt│
+     * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+     */
     [2] = LAYOUT(
         _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL , ZOM_MIC,  \
         _______, _______, KC_MS_U, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, _______, _______, _______, KC__MUTE, \
@@ -69,11 +122,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD,  \
         _______, _______, _______,                            KC_BTN1,                            _______, _______, KC_MRWD, _______, KC_MFFD   \
     ),
+    /* LAYER 3: App Hotkeys
+     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+     * │   │Ds1│Ds2│   │   │   │   │   │   │   │   │   │   │       │   │
+     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+     * │     │   │   │   │   │Trm│   │   │   │   │   │Trm│IDE│Brows│   │
+     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+     * │      │Atm│Slk│   │Fnd│   │   │   │   │   │   │   │        │   │
+     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+     * │        │Zom│   │Cal│   │Brs│   │   │Msg│Mal│   │      │   │   │
+     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+     * │    │    │LCmd│        Spotlite        │    │    │ │   │   │   │
+     * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+     */
     [3] = LAYOUT(
         _______, DESKTP1, DESKTP2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
         _______, _______, _______, _______, _______, CKC_TRM, _______, _______, _______, _______, _______, CKC_TRM, CKC_IDE, CKC_BRS, _______, \
         _______, CKC_IDE, CKC_SLK, _______, CKC_FND, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
-        _______, CKC_ZOM, _______, CKC_CAL, _______, CKC_BRS, _______, CKC_MSG, CKC_MAL, _______, CKC_TRM, CKC_IDE,          _______, _______, \
+        _______, CKC_ZOM, _______, CKC_CAL, _______, CKC_BRS, _______, CKC_MSG, CKC_MAL, _______, _______, _______,          _______, _______, \
         _______, _______, KC_LGUI,                            SPOTLTE,                            _______, _______, _______, _______, _______  \
     ),
     /*
@@ -127,19 +193,22 @@ void matrix_scan_user(void) {
 #define MODS_ALT (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 #define MODS_GUI (get_mods() & MOD_BIT(KC_LGUI) || get_mods() & MOD_BIT(KC_RGUI))
 
-bool open_app(keyrecord_t *record, char *appname, char *altappname) {
+bool open_app(keyrecord_t *record, char *appname) {
+  SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+  send_string(appname);
+  SEND_STRING(SS_TAP(X_ENTER));
+  return false;
+}
+
+bool open_app_or_alt(keyrecord_t *record, char *appname, char *altappname) {
   if (record->event.pressed && MODS_GUI) {
-    SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-    send_string(altappname);
-    SEND_STRING(SS_TAP(X_ENTER));
+    return open_app(record, altappname);
   } else if (record->event.pressed) {
-    SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-    send_string(appname);
-    SEND_STRING(SS_TAP(X_ENTER));
+    return open_app(record, appname);
   }
 
   return false;
-};
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
@@ -149,23 +218,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // losandes keycodes start here
         // ====================================================================
         case CKC_IDE:
-          return open_app(record, APP_IDE_AT, APP_IDE_VS);
+          return open_app_or_alt(record, APP_IDE_AT, APP_IDE_VS);
         case CKC_TRM:
-          return open_app(record, APP_TRM, NOALT__);
+          return open_app(record, APP_TRM);
         case CKC_BRS:
-          return open_app(record, APP_BRS_FF, APP_BRS_SA);
+          return open_app_or_alt(record, APP_BRS_FF, APP_BRS_SA);
         case CKC_SLK:
-          return open_app(record, APP_SLK, APP_BRS_SA);
+          return open_app_or_alt(record, APP_SLK, APP_BRS_SA);
         case CKC_FND:
-          return open_app(record, APP_FND, APP_BRS_FF);
+          return open_app_or_alt(record, APP_FND, APP_BRS_FF);
         case CKC_MSG:
-          return open_app(record, APP_MSG, NOALT__);
+          return open_app(record, APP_MSG);
         case CKC_MAL:
-          return open_app(record, APP_MAL, NOALT__);
+          return open_app(record, APP_MAL);
         case CKC_CAL:
-          return open_app(record, APP_CAL, NOALT__);
+          return open_app(record, APP_CAL);
         case CKC_ZOM:
-          return open_app(record, APP_ZOM, NOALT__);
+          return open_app(record, APP_ZOM);
         // massdrop alt keycodes start here
         // ====================================================================
         case L_BRI:
