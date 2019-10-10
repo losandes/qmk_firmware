@@ -9,7 +9,7 @@
 #define APP_BRS_SA  "Safari.app"
 #define APP_SLK     "Slack.app"
 #define APP_FND     "Finder.app"
-#define APP_MSG     "Messagges.app"
+#define APP_MSG     "Messages.app"
 #define APP_MAL     "Mail.app"
 #define APP_CAL     "Calendar.app"
 #define APP_ZOM     "zoom.us.app"

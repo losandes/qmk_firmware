@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "wait.h"
 #include "config.h"
 #include "led_matrix.h"
 #include "my_led_programs.c"
@@ -32,7 +33,7 @@ enum alt_keycodes {
     CKC_BRS,            //Macos Open Browser
     CKC_SLK,            //Macos Open Slack
     CKC_FND,            //Macos Open Finder
-    CKC_MSG,            //Macos Open Messages
+    CKC_NOT,            //Macos Open Notes
     CKC_MAL,            //Macos Open Mail
     CKC_CAL,            //Macos Open Calendar
     CKC_ZOM,            //Macos Open ZOOM
@@ -66,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
     * │Esc| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | - | = | Backs │ ` │
     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
-    * │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │ \ │
+    * │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │Del│
     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
     * │CtlCap│ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ Enter  │PgU│
     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
@@ -77,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [0] = LAYOUT(
         KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_BSLS, \
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,  \
         CTL_CAP, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
-        TT(1),   KC_LALT, KC_LGUI,                            KC_SPC,                             TT(3),   TT(2),   KC_LEFT, KC_DOWN, KC_RGHT  \
+        TT(1),   KC_LALT, KC_LGUI,                            KC_SPC,                             KC_LEAD, TT(2),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     /* Layer 1: Function Keys
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
@@ -121,26 +122,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU,  \
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD,  \
         _______, _______, _______,                            KC_BTN1,                            _______, _______, KC_MRWD, _______, KC_MFFD   \
-    ),
-    /* LAYER 3: App Hotkeys
-     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
-     * │   │Ds1│Ds2│   │   │   │   │   │   │   │   │   │   │       │   │
-     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
-     * │     │   │   │   │   │Trm│   │   │   │   │   │Trm│IDE│Brows│   │
-     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
-     * │      │Atm│Slk│   │Fnd│   │   │   │   │   │   │   │        │   │
-     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-     * │        │Zom│   │Cal│   │Brs│   │   │Msg│Mal│   │      │   │   │
-     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-     * │    │    │LCmd│        Spotlite        │    │    │ │   │   │   │
-     * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
-     */
-    [3] = LAYOUT(
-        _______, DESKTP1, DESKTP2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-        _______, _______, _______, _______, _______, CKC_TRM, _______, _______, _______, _______, _______, CKC_TRM, CKC_IDE, CKC_BRS, _______, \
-        _______, CKC_IDE, CKC_SLK, _______, CKC_FND, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
-        _______, CKC_ZOM, _______, CKC_CAL, _______, CKC_BRS, _______, CKC_MSG, CKC_MAL, _______, _______, _______,          _______, _______, \
-        _______, _______, KC_LGUI,                            SPOTLTE,                            _______, _______, _______, _______, _______  \
     ),
     /*
     [X] = LAYOUT(
@@ -183,9 +164,167 @@ void matrix_init_user(void) {
   led_setups[10] = leds_trolls_dance_party_s;
 };
 
+void open_alfred() {
+  register_code(KC_LALT);
+  register_code(KC_SPC);
+  unregister_code(KC_SPC);
+  unregister_code(KC_LALT);
+  wait_ms(30);
+}
+
+void open_spotlight() {
+  register_code(KC_LGUI);
+  register_code(KC_SPC);
+  unregister_code(KC_SPC);
+  unregister_code(KC_LGUI);
+  wait_ms(30);
+}
+
+LEADER_EXTERNS();
+
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+  /* Leader Keys: App Hotkeys
+   * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+   * │Slp│Ds1│Ds2│   │   │   │   │   │   │   │   │   │   │       │   │
+   * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+   * │     │   │   │   │   │Trm│   │   │   │   │   │Trm│IDE│Brows│   │
+   * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+   * │      │Atm│Slk│   │Fnd│   │   │   │   │Lck│   │   │        │   │
+   * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+   * │        │Zom│   │Cal│VsC│Brs│   │Not│Mal│   │   │      │   │   │
+   * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+   * │    │    │LCmd│        Spotlite        │    │    │ │   │   │   │
+   * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+   */
+  LEADER_DICTIONARY() {
+      leading = false;
+      leader_end();
 
+      SEQ_ONE_KEY(KC_ESC) {
+        open_alfred();
+        SEND_STRING("Sleep" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_1) {
+        register_code(KC_LCTL);
+        register_code(KC_1);
+        unregister_code(KC_1);
+        unregister_code(KC_LCTL);
+      }
+
+      SEQ_ONE_KEY(KC_2) {
+        register_code(KC_LCTL);
+        register_code(KC_2);
+        unregister_code(KC_2);
+        unregister_code(KC_LCTL);
+      }
+
+      SEQ_ONE_KEY(KC_A) {
+        open_spotlight();
+        SEND_STRING("Atom.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_RBRC) {
+        open_spotlight();
+        SEND_STRING("Atom.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_B) {
+        open_spotlight();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_B, KC_B) {
+        open_spotlight();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_C) {
+        open_spotlight();
+        SEND_STRING("Calendar.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_C, KC_C) {
+        open_spotlight();
+        SEND_STRING("Numi.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_F) {
+        open_spotlight();
+        SEND_STRING("Finder.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_F, KC_F) {
+        open_spotlight();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_BSLS) {
+        open_spotlight();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_L) {
+        open_alfred();
+        SEND_STRING("Lock" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_M) {
+        open_spotlight();
+        SEND_STRING("Mail.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_M, KC_M) {
+        open_spotlight();
+        SEND_STRING("Messages.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_N) {
+        open_spotlight();
+        SEND_STRING("Notes.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_S) {
+        open_spotlight();
+        SEND_STRING("Slack.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_S, KC_S) {
+        open_spotlight();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_BSLS, KC_BSLS) {
+        open_spotlight();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_T) {
+        open_spotlight();
+        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_LBRC) {
+        open_spotlight();
+        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_V) {
+        open_spotlight();
+        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_RBRC, KC_RBRC) {
+        open_spotlight();
+        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_Z) {
+        open_spotlight();
+        SEND_STRING("zoom.us.app" SS_TAP(X_ENTER));
+      }
+    }
 };
 
 #define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
@@ -193,50 +332,11 @@ void matrix_scan_user(void) {
 #define MODS_ALT (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 #define MODS_GUI (get_mods() & MOD_BIT(KC_LGUI) || get_mods() & MOD_BIT(KC_RGUI))
 
-bool open_app(keyrecord_t *record, char *appname) {
-  SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-  send_string(appname);
-  SEND_STRING(SS_TAP(X_ENTER));
-  return false;
-}
-
-bool open_app_or_alt(keyrecord_t *record, char *appname, char *altappname) {
-  if (record->event.pressed && MODS_GUI) {
-    return open_app(record, altappname);
-  } else if (record->event.pressed) {
-    return open_app(record, appname);
-  }
-
-  return false;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
     static uint8_t scroll_effect = 0;
 
     switch (keycode) {
-        // losandes keycodes start here
-        // ====================================================================
-        case CKC_IDE:
-          return open_app_or_alt(record, APP_IDE_AT, APP_IDE_VS);
-        case CKC_TRM:
-          return open_app(record, APP_TRM);
-        case CKC_BRS:
-          return open_app_or_alt(record, APP_BRS_FF, APP_BRS_SA);
-        case CKC_SLK:
-          return open_app_or_alt(record, APP_SLK, APP_BRS_SA);
-        case CKC_FND:
-          return open_app_or_alt(record, APP_FND, APP_BRS_FF);
-        case CKC_MSG:
-          return open_app(record, APP_MSG);
-        case CKC_MAL:
-          return open_app(record, APP_MAL);
-        case CKC_CAL:
-          return open_app(record, APP_CAL);
-        case CKC_ZOM:
-          return open_app(record, APP_ZOM);
-        // massdrop alt keycodes start here
-        // ====================================================================
         case L_BRI:
             if (record->event.pressed) {
                 if (LED_GCR_STEP > LED_GCR_MAX - gcr_desired) gcr_desired = LED_GCR_MAX;
@@ -422,9 +522,6 @@ led_instruction_t led_instructions[] = {
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id1 = 2147483648, .r = 127, .g = 0, .b = 255 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 503160831, .id1 = 1577056252, .id2 = 2, .r = 0, .g = 0, .b = 0 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2148532230, .id1 = 14327813, .id2 = 4294967288, .id3 = 511, .r = 254, .g = 119, .b = 0 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id1 = 1073741824, .r = 127, .g = 0, .b = 255 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2146435065, .id1 = 3206897658, .id2 = 7, .r = 0, .g = 0, .b = 0 },
 
   //end must be set to 1 to indicate end of instruction set
   { .end = 1 }
