@@ -27,23 +27,10 @@ enum alt_keycodes {
     DBG_MOU,            //DEBUG Toggle Mouse Prints
     DBG_FAC,            //DEBUG Factory light testing (All on white)
     MD_BOOT,            //Restart into bootloader after hold timeout
-    // losandes keycodes start here
-    CKC_IDE,            //Macos Open IDE
-    CKC_TRM,            //Macos Open Terminal
-    CKC_BRS,            //Macos Open Browser
-    CKC_SLK,            //Macos Open Slack
-    CKC_FND,            //Macos Open Finder
-    CKC_NOT,            //Macos Open Notes
-    CKC_MAL,            //Macos Open Mail
-    CKC_CAL,            //Macos Open Calendar
-    CKC_ZOM,            //Macos Open ZOOM
 };
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
-#define SPOTLTE LGUI(KC_SPC)
 #define CTL_CAP CTL_T(KC_CAPS)
-#define DESKTP1 LCTL(KC_1)
-#define DESKTP2 LCTL(KC_2)
 #define ZOM_MIC LSFT(LGUI(KC_A))
 
 keymap_config_t keymap_config;
@@ -329,8 +316,6 @@ void matrix_scan_user(void) {
 
 #define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
-#define MODS_ALT (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
-#define MODS_GUI (get_mods() & MOD_BIT(KC_LGUI) || get_mods() & MOD_BIT(KC_RGUI))
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;

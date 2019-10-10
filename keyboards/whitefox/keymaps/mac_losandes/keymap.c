@@ -2,21 +2,9 @@
 
 enum alt_keycodes {
     DFU_MOD, // Reboot Keyboard in DFU mode
-    CKC_IDE, // Macos Open IDE (Atom, or with LCmd => VSCode)
-    CKC_TRM, // Macos Open Terminal
-    CKC_BRS, // Macos Open Browser (Firefox, or with LCmd => Safari)
-    CKC_SLK, // Macos Open Slack (or with LCmd => Safari)
-    CKC_FND, // Macos Open Finder (or with LCmd => Firefox)
-    CKC_MSG, // Macos Open Messages
-    CKC_MAL, // Macos Open Mail
-    CKC_CAL, // Macos Open Calendar
-    CKC_ZOM, // Macos Open ZOOM
 };
 
-#define SPOTLTE LGUI(KC_SPC)
 #define CTL_CAP CTL_T(KC_CAPS)
-#define DESKTP1 LCTL(KC_1)
-#define DESKTP2 LCTL(KC_2)
 #define ZOM_MIC LSFT(LGUI(KC_A))
 
 /* Truefox Template
@@ -104,69 +92,175 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______, KC_VOLD,  \
        _______, _______, _______,                            KC_BTN1,                   _______, _______,                   KC_MRWD, _______, KC_MFFD   \
      ),
-     /* LAYER 3: App Hotkeys
-      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
-      * │   │Ds1│Ds2│   │   │   │   │   │   │   │   │   │   │   │   │   │
-      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┼───┤
-      * │     │   │   │   │   │Trm│   │   │   │   │   │Trm│IDE│Brows│   │
-      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
-      * │      │Atm│Slk│   │Fnd│   │   │   │   │   │   │   │        │   │
-      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-      * │        │Zom│   │Cal│   │Brs│   │   │Msg│Mal│   │      │   │   │
-      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-      * │    │    │LCmd│        Spotlite        │    │    │ │   │   │   │
-      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
-      */
-     [3] = LAYOUT(
-       _______, DESKTP1, DESKTP2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-       _______, _______, _______, _______, _______, CKC_TRM, _______, _______, _______, _______, _______, CKC_TRM, CKC_IDE,      CKC_BRS,     _______, \
-       _______, CKC_IDE, CKC_SLK, _______, CKC_FND, _______, _______, _______, _______, _______, _______, _______,          _______,          _______, \
-       _______, CKC_ZOM, _______, CKC_CAL, _______, CKC_BRS, _______, CKC_MSG, CKC_MAL, _______, _______,          _______,          _______, _______, \
-       _______, _______, KC_LGUI,                            SPOTLTE,                   _______, _______,                   _______, _______, _______  \
-     ),
 };
 
-#define MODS_GUI (get_mods() & MOD_BIT(KC_LGUI) || get_mods() & MOD_BIT(KC_RGUI))
-
-bool open_app(keyrecord_t *record, char *appname) {
-  SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-  send_string(appname);
-  SEND_STRING(SS_TAP(X_ENTER));
-  return false;  // Cancel further processing
+void open_alfred() {
+  register_code(KC_LALT);
+  register_code(KC_SPC);
+  unregister_code(KC_SPC);
+  unregister_code(KC_LALT);
+  wait_ms(30);
 }
 
-bool open_app_or_alt(keyrecord_t *record, char *appname, char *altappname) {
-  if (record->event.pressed && MODS_GUI) {
-    return open_app(record, altappname);
-  } else if (record->event.pressed) {
-    return open_app(record, appname);
-  }
-
-  return false; // Cancel further processing
+void open_spotlight() {
+  register_code(KC_LGUI);
+  register_code(KC_SPC);
+  unregister_code(KC_SPC);
+  unregister_code(KC_LGUI);
+  wait_ms(30);
 }
+
+LEADER_EXTERNS();
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+   /* Leader Keys: App Hotkeys
+    * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
+    * │Slp│Ds1│Ds2│   │   │   │   │   │   │   │   │   │   │   │   │   │
+    * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┼───┤
+    * │     │   │   │   │   │Trm│   │   │   │   │   │Trm│IDE│Brows│   │
+    * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+    * │      │Atm│Slk│   │Fnd│   │   │   │   │Lck│   │   │        │   │
+    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+    * │        │Zom│   │Cal│VsC│Brs│   │Not│Mal│   │   │      │   │   │
+    * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+    * │    │    │LCmd│        Spotlite        │    │    │ │   │   │   │
+    * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+    */
+  LEADER_DICTIONARY() {
+      leading = false;
+      leader_end();
+
+      SEQ_ONE_KEY(KC_ESC) {
+        open_alfred();
+        SEND_STRING("Sleep" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_1) {
+        register_code(KC_LCTL);
+        register_code(KC_1);
+        unregister_code(KC_1);
+        unregister_code(KC_LCTL);
+      }
+
+      SEQ_ONE_KEY(KC_2) {
+        register_code(KC_LCTL);
+        register_code(KC_2);
+        unregister_code(KC_2);
+        unregister_code(KC_LCTL);
+      }
+
+      SEQ_ONE_KEY(KC_A) {
+        open_spotlight();
+        SEND_STRING("Atom.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_RBRC) {
+        open_spotlight();
+        SEND_STRING("Atom.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_B) {
+        open_spotlight();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_B, KC_B) {
+        open_spotlight();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_C) {
+        open_spotlight();
+        SEND_STRING("Calendar.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_C, KC_C) {
+        open_spotlight();
+        SEND_STRING("Numi.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_F) {
+        open_spotlight();
+        SEND_STRING("Finder.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_F, KC_F) {
+        open_spotlight();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_BSLS) {
+        open_spotlight();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_L) {
+        open_alfred();
+        SEND_STRING("Lock" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_M) {
+        open_spotlight();
+        SEND_STRING("Mail.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_M, KC_M) {
+        open_spotlight();
+        SEND_STRING("Messages.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_N) {
+        open_spotlight();
+        SEND_STRING("Notes.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_S) {
+        open_spotlight();
+        SEND_STRING("Slack.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_S, KC_S) {
+        open_spotlight();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_BSLS, KC_BSLS) {
+        open_spotlight();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_T) {
+        open_spotlight();
+        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_LBRC) {
+        open_spotlight();
+        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_V) {
+        open_spotlight();
+        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_RBRC, KC_RBRC) {
+        open_spotlight();
+        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_Z) {
+        open_spotlight();
+        SEND_STRING("zoom.us.app" SS_TAP(X_ENTER));
+      }
+    }
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
 
     switch (keycode) {
-        case CKC_IDE:
-          return open_app_or_alt(record, APP_IDE_AT, APP_IDE_VS);
-        case CKC_TRM:
-          return open_app(record, APP_TRM);
-        case CKC_BRS:
-          return open_app_or_alt(record, APP_BRS_FF, APP_BRS_SA);
-        case CKC_SLK:
-          return open_app_or_alt(record, APP_SLK, APP_BRS_SA);
-        case CKC_FND:
-          return open_app_or_alt(record, APP_FND, APP_BRS_FF);
-        case CKC_MSG:
-          return open_app(record, APP_MSG);
-        case CKC_MAL:
-          return open_app(record, APP_MAL);
-        case CKC_CAL:
-          return open_app(record, APP_CAL);
-        case CKC_ZOM:
-          return open_app(record, APP_ZOM);
         case DFU_MOD:
             if (record->event.pressed) {
                 key_timer = timer_read32();
