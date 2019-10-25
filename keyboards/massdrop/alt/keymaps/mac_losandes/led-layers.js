@@ -40,9 +40,9 @@ const layers = [
                             _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_,
       _PATTERN_, '#0000ff', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#fe7700', '#ff0000', '#0000ff', _PATTERN_,
       _PATTERN_, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, _PATTERN_,
-      _PATTERN_, ___OFF___, '#pppp00', ___OFF___, '#pppp00', ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___,       ___OFF___,      ___OFF___, _PATTERN_,
-      _PATTERN_, ___OFF___, ___OFF___, '#pppp00', ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___,       ___OFF___,      '#pppp00', '#pppp00', _PATTERN_,
-      _PATTERN_, '#7f00ff', ___OFF___, ___OFF___,                                  ___OFF___,                                  ___OFF___, ___OFF___, ___OFF___, '#pppp00', ___OFF___, _PATTERN_,
+      _PATTERN_, ___OFF___, '#pppp01', ___OFF___, '#pppp01', ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___,       ___OFF___,      ___OFF___, _PATTERN_,
+      _PATTERN_, ___OFF___, ___OFF___, '#pppp01', ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___, ___OFF___,       ___OFF___,      '#pppp01', '#pppp01', _PATTERN_,
+      _PATTERN_, '#7f00ff', ___OFF___, ___OFF___,                                  ___OFF___,                                  ___OFF___, ___OFF___, ___OFF___, '#pppp01', ___OFF___, _PATTERN_,
                  _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_, _PATTERN_,
     ]
   }, // /layer1
