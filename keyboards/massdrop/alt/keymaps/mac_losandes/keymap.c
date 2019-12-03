@@ -248,7 +248,7 @@ void matrix_scan_user(void) {
         SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
       }
 
-      SEQ_ONE_KEY(KC_BSLS) {
+      SEQ_ONE_KEY(KC_BSPC) {
         open_spotlight();
         SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
       }
@@ -288,7 +288,7 @@ void matrix_scan_user(void) {
         SEND_STRING("Safari.app" SS_TAP(X_ENTER));
       }
 
-      SEQ_TWO_KEYS(KC_BSLS, KC_BSLS) {
+      SEQ_TWO_KEYS(KC_BSPC, KC_BSPC) {
         open_spotlight();
         SEND_STRING("Safari.app" SS_TAP(X_ENTER));
       }
