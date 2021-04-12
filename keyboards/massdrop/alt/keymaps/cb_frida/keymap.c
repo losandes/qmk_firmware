@@ -139,17 +139,17 @@ void matrix_init_user(void) {
   // There are a max of 10 led_setups that can be overridden
   // led_setups is defined in 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix_programs.c'
   // and consumed by 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix.c'
-  led_setups[0]  = leds_off_override;
+  led_setups[0]  = leds_teal_override;
   led_setups[1]  = leds_rainbow_s_override;
   led_setups[2]  = leds_rainbow_ns_override;
   led_setups[3]  = leds_purple;
   led_setups[4]  = leds_teal_salmon_override;
   led_setups[5]  = leds_green_override;
-  led_setups[6]  = leds_irish_s;
+  led_setups[6]  = leds_trolls_dance_party_s;
   led_setups[7]  = led_purple_rainbow_s;
   led_setups[8]  = leds_bwo_s;
   led_setups[9]  = leds_rainbow_burst_s;
-  led_setups[10] = leds_trolls_dance_party_s;
+  led_setups[10] = leds_off_override;
 };
 
 void open_alfred() {
@@ -520,23 +520,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+
+
 led_instruction_t led_instructions[] = {
   //All LEDs use the user's selected pattern (this is the factory default)
   { .flags = LED_FLAG_USE_ROTATE_PATTERN },
 
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 0, .id1 = 240, .r = 127, .g = 0, .b = 255 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_USE_ROTATE_PATTERN, .layer = 1, .id2 = 4294967288, .id3 = 511 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN, .layer = 1, .id0 = 2147483648, .id1 = 50348034, .id2 = 2, .pattern_id = 1 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 16385, .r = 0, .g = 0, .b = 255 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8190, .r = 254, .g = 119, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id1 = 67108864, .r = 127, .g = 0, .b = 255 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id1 = 67108864, .r = 24, .g = 215, .b = 176 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 2147450880, .id1 = 4177510397, .id2 = 5, .r = 0, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 3791798272, .id1 = 570427395, .id2 = 4294967293, .id3 = 511, .r = 30, .g = 136, .b = 229 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id1 = 2147483648, .r = 127, .g = 0, .b = 255 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id1 = 2147483648, .r = 24, .g = 215, .b = 176 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 503160831, .id1 = 1577056252, .id2 = 2, .r = 0, .g = 0, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2148532230, .id1 = 14327813, .id2 = 4294967288, .id3 = 511, .r = 254, .g = 119, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id1 = 1073741824, .r = 24, .g = 215, .b = 176 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2146435065, .id1 = 3206897658, .id2 = 7, .r = 0, .g = 0, .b = 0 },
 
   //end must be set to 1 to indicate end of instruction set
   { .end = 1 }
 };
+
