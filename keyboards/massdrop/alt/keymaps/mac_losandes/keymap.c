@@ -214,42 +214,42 @@ void matrix_scan_user(void) {
       }
 
       SEQ_ONE_KEY(KC_RBRC) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_B) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
       }
 
       SEQ_TWO_KEYS(KC_B, KC_B) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Safari.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_C) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Calendar.app" SS_TAP(X_ENTER));
       }
 
       SEQ_TWO_KEYS(KC_C, KC_C) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Numi.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_F) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Finder.app" SS_TAP(X_ENTER));
       }
 
       SEQ_TWO_KEYS(KC_F, KC_F) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_BSPC) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
       }
 
@@ -259,42 +259,42 @@ void matrix_scan_user(void) {
       }
 
       SEQ_ONE_KEY(KC_M) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Mail.app" SS_TAP(X_ENTER));
       }
 
       SEQ_TWO_KEYS(KC_M, KC_M) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Messages.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_I) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Music.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_N) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Bear.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_S) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Slack.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_RSFT) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Slack.app" SS_TAP(X_ENTER));
       }
 
       SEQ_TWO_KEYS(KC_S, KC_S) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Safari.app" SS_TAP(X_ENTER));
       }
 
       SEQ_TWO_KEYS(KC_BSPC, KC_BSPC) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Safari.app" SS_TAP(X_ENTER));
       }
 
@@ -307,38 +307,43 @@ void matrix_scan_user(void) {
       }
 
       SEQ_ONE_KEY(KC_T) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_LBRC) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_V) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
       }
 
       SEQ_TWO_KEYS(KC_RBRC, KC_RBRC) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
       }
 
       SEQ_ONE_KEY(KC_Z) {
-        open_spotlight();
+        open_alfred();
         SEND_STRING("zoom.us.app" SS_TAP(X_ENTER));
       }
 
-      SEQ_ONE_KEY(KC_DOT) {
+      SEQ_ONE_KEY(KC_COMM) {
         open_alfred();
         SEND_STRING("close-notifications" SS_TAP(X_ENTER));
       }
 
-      SEQ_ONE_KEY(KC_SLSH) {
+      SEQ_ONE_KEY(KC_DOT) {
         open_alfred();
         SEND_STRING("snooze-notifications" SS_TAP(X_ENTER));
+      }
+      
+      SEQ_ONE_KEY(KC_SLSH) {
+        open_alfred();
+        SEND_STRING("join-meeting-notification" SS_TAP(X_ENTER));
       }
     }
 };

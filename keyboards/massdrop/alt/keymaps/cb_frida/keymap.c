@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,  \
         CTL_CAP, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
-        LYR_1,   KC_LALT, KC_LGUI,                            KC_SPC,                             KC_LEAD, LYR_2,   KC_LEFT, KC_DOWN, KC_RGHT  \
+        LYR_1,   KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI, LYR_2,   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     /* Layer 1: Function Keys
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
@@ -129,8 +129,8 @@ uint8_t my_led_setups_count = 11;
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
   led_animation_id = 0;      // initial background color
-  gcr_desired = 20;          // set the default brightness (GCR increment/decrement value is 10 per step, 0 is off)
-  led_edge_brightness = 0.1; // set the default edge brightness to be less bright than default
+  gcr_desired = 50;          // set the default brightness (GCR increment/decrement value is 10 per step, 0 is off)
+  led_edge_brightness = 0.3; // set the default edge brightness to be less bright than default
   // set the default color pattern (L_T_PTD)
   led_animation_direction = 0;
   led_animation_orientation = 0;
@@ -150,197 +150,6 @@ void matrix_init_user(void) {
   led_setups[8]  = leds_bwo_s;
   led_setups[9]  = leds_rainbow_burst_s;
   led_setups[10] = leds_off_override;
-};
-
-void open_alfred() {
-  register_code(KC_LALT);
-  register_code(KC_SPC);
-  unregister_code(KC_SPC);
-  unregister_code(KC_LALT);
-  wait_ms(30);
-}
-
-void open_spotlight() {
-  register_code(KC_LGUI);
-  register_code(KC_SPC);
-  unregister_code(KC_SPC);
-  unregister_code(KC_LGUI);
-  wait_ms(30);
-}
-
-LEADER_EXTERNS();
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-  /* Leader Keys: App Hotkeys (Fn3/Lēdr)
-   * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
-   * │Slp│Ds1│Ds2│   │   │   │   │   │   │   │   │   │   │       │   │
-   * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
-   * │     │   │   │   │   │Trm│   │   │tun│   │   │Trm│IDE│Brows│   │
-   * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
-   * │      │Abl│Slk│   │Fnd│   │   │   │   │Lck│   │   │        │   │
-   * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-   * │        │Zöm│   │Cal│VsC│Brs│   │Ber│Māl│   │   │Slack │   │   │
-   * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-   * │    │    │    │        Spotlite        │Lēdr│Alfr│ │   │   │   │
-   * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
-   */
-  LEADER_DICTIONARY() {
-      leading = false;
-      leader_end();
-
-      SEQ_ONE_KEY(KC_ESC) {
-        open_alfred();
-        SEND_STRING("Sleep" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_1) {
-        register_code(KC_LCTL);
-        register_code(KC_1);
-        unregister_code(KC_1);
-        unregister_code(KC_LCTL);
-      }
-
-      SEQ_ONE_KEY(KC_2) {
-        register_code(KC_LCTL);
-        register_code(KC_2);
-        unregister_code(KC_2);
-        unregister_code(KC_LCTL);
-      }
-
-      SEQ_ONE_KEY(KC_A) {
-        open_alfred();
-        SEND_STRING("Ableton Live 11 Suite.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_RBRC) {
-        open_spotlight();
-        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_B) {
-        open_spotlight();
-        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_TWO_KEYS(KC_B, KC_B) {
-        open_spotlight();
-        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_C) {
-        open_spotlight();
-        SEND_STRING("Calendar.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_TWO_KEYS(KC_C, KC_C) {
-        open_spotlight();
-        SEND_STRING("Numi.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_F) {
-        open_spotlight();
-        SEND_STRING("Finder.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_TWO_KEYS(KC_F, KC_F) {
-        open_spotlight();
-        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_BSPC) {
-        open_spotlight();
-        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_L) {
-        open_alfred();
-        SEND_STRING("Lock" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_M) {
-        open_spotlight();
-        SEND_STRING("Mail.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_TWO_KEYS(KC_M, KC_M) {
-        open_spotlight();
-        SEND_STRING("Messages.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_I) {
-        open_spotlight();
-        SEND_STRING("Music.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_N) {
-        open_spotlight();
-        SEND_STRING("Bear.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_S) {
-        open_spotlight();
-        SEND_STRING("Slack.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_RSFT) {
-        open_spotlight();
-        SEND_STRING("Slack.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_TWO_KEYS(KC_S, KC_S) {
-        open_spotlight();
-        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_TWO_KEYS(KC_BSPC, KC_BSPC) {
-        open_spotlight();
-        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_SPC) {
-        open_spotlight();
-      }
-
-      SEQ_ONE_KEY(LYR_2) {
-        open_alfred();
-      }
-
-      SEQ_ONE_KEY(KC_T) {
-        open_spotlight();
-        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_LBRC) {
-        open_spotlight();
-        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_V) {
-        open_spotlight();
-        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_TWO_KEYS(KC_RBRC, KC_RBRC) {
-        open_spotlight();
-        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_Z) {
-        open_spotlight();
-        SEND_STRING("zoom.us.app" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_DOT) {
-        open_alfred();
-        SEND_STRING("close-notifications" SS_TAP(X_ENTER));
-      }
-
-      SEQ_ONE_KEY(KC_SLSH) {
-        open_alfred();
-        SEND_STRING("snooze-notifications" SS_TAP(X_ENTER));
-      }
-    }
 };
 
 #define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
