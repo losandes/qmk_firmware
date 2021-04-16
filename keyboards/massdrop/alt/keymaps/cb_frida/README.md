@@ -38,9 +38,9 @@ make massdrop/alt:default
 ## Building Firmware
 
 ```Shell
-rm massdrop_alt_mac_losandes.bin
+rm massdrop_alt_cb_frida.bin
 make clean
-make massdrop/alt:mac_losandes
+make massdrop/alt:cb_frida
 ```
 
 ## Configuring the LEDS
