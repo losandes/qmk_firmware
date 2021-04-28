@@ -208,6 +208,11 @@ void matrix_scan_user(void) {
         unregister_code(KC_LCTL);
       }
 
+      SEQ_ONE_KEY(KC_GRV) {
+        open_alfred();
+        SEND_STRING("mic-toggle" SS_TAP(X_ENTER));
+      }
+
       SEQ_ONE_KEY(KC_A) {
         open_alfred();
         SEND_STRING("Ableton Live 11 Suite.app" SS_TAP(X_ENTER));
