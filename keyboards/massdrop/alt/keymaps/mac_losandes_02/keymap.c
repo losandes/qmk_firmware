@@ -62,29 +62,29 @@ keymap_config_t keymap_config;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /* Layer 0: Default Layer
     * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
-    * │Esc| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | - | = | BkSpc │ ` │
+    * │Esc| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | - | = |  Del  │ ` │
     * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
-    * │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │   │
+    * │ Tab │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │BkSpc│ | │
     * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
-    * │CtlCap│ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ Enter  │   │
+    * │CtlCap│ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ Enter  │PgU│
     * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-    * │ Shift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │Shift │Fn2│   │
+    * │ Shift  │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │Shift │ ↑ │PgD│
     * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-    * │Fn1 │LAlt│LCmd│         Space          │Fn2 │RCmd│ │   │   │   │
+    * │Lyr1│LAlt│LCmd│         Space          │Lyr3│Lyr2│ │ ← │ ↓ │ → │
     * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
     */
     [0] = LAYOUT(
-        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, KC_GRV,  \
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, XXXXXXX, \
-        CTL_CAP, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  XXXXXXX, \
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          LYR_2,   XXXXXXX, \
-        LYR_1,   KC_LALT, KC_LGUI,                            KC_SPC,                             LYR_2,   KC_RGUI, XXXXXXX, XXXXXXX, XXXXXXX  \
+        KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_DEL,  KC_GRV,  \
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSPC, KC_BSLS, \
+        CTL_CAP, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,          KC_UP,   KC_PGDN, \
+        LYR_1,   KC_LALT, KC_LGUI,                            KC_SPC,                             KC_LEAD, LYR_2,   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     /* Layer 1: Function Keys
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
      * │DFU│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│  Del  │Pwr│
      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
-     * │Breth│Sp↓│Br↑│Sp↑│Ed↑│   │   │   │GCR│   │   │   │   │     │Mut│
+     * │Breth│Sp↓│Br↑│Sp↑│Ed↑│   │   │   │GCR│   │>||│   │   │ Del │Mut│
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
      * │ LDir │L← │Br↓│L→ │Ed↓│   │ ← │ ↓ │ ↑ │ → │   │   │        │   │
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
@@ -94,31 +94,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [1] = LAYOUT(
-        MD_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_PWR,   \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, _______, _______, U_T_AGCR,_______, _______, _______, _______, _______, KC__MUTE, \
+        MD_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_PWR,   \
+        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   L_EDG_I, _______, _______, _______, U_T_AGCR,_______, _______, _______, _______, KC_DEL,  KC__MUTE, \
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   L_EDG_D, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,          _______, _______,  \
         _______, L_T_MD,  L_T_ONF, _______, L_EDG_M, MD_BOOT, TG_NKRO, _______, _______, _______, _______, _______,          L_BRI,   L_T_ONF,  \
         _______, _______, _______,                            DBG_FAC,                            _______, _______, KC_HOME, L_BRD,   KC_END    \
     ),
     /* LAYER 2: Media and Mouse
      * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
-     * │Pwr│F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│  Del  │Del│
+     * │   │   │   │   │   │   │   │   │   │   │   │   │   │  Del  │Mic│
      * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
-     * │Caps │   │ ↑ │   │   │   │   │   │   │   │   │ ↑ │   │ Del │   │
+     * │     │   │M↑ │   │   │   │   │   │   │   │>||│   │   │ Del │Mut│
      * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
-     * │      │ ← │ ↑ │ → │   │   │ * │ / │Hom│PgU│ ← │ → │ Enter  │   │
+     * │RClck │M← │M↓ │M→ │   │   │   │   │   │   │   │   │        │Vo↑│
      * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-     * │        │   │   │   │   │   │ + │ - │End│PgD│ ↓ │      │Fn2│   │
+     * │        │   │   │   │   │   │   │   │   │   │   │      │   │Vo↓│
      * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-     * │    │    │    │                        │Fn2 │    │ │   │   │   │
+     * │    │    │    │       Left Click       │    │    │ │Pre│   │Nxt│
      * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
      */
     [2] = LAYOUT(
-        KC_PWR,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_DEL,   \
-        KC_CAPS, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, KC_DEL,  XXXXXXX,  \
-        XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT,XXXXXXX, XXXXXXX, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,         KC_ENT,  XXXXXXX,  \
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_PMNS, KC_END,  KC_PGDN, KC_DOWN, XXXXXXX,          LYR_2,   XXXXXXX,  \
-        XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            LYR_2,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX   \
+        _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, ZOM_MIC,  \
+        _______, _______, KC_MS_U, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, _______, _______, KC_DEL , KC__MUTE, \
+        KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLU,  \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_VOLD,  \
+        _______, _______, _______,                            KC_BTN1,                            _______, _______, KC_MRWD, _______, KC_MFFD   \
     ),
 };
 
@@ -140,8 +140,8 @@ void matrix_init_user(void) {
   // led_setups is defined in 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix_programs.c'
   // and consumed by 'qmk_firmware/tmk_core/protocol/arm_atsam/led_matrix.c'
   led_setups[0]  = leds_off_override;
-  led_setups[1]  = leds_rainbow_s_override;
-  led_setups[2]  = leds_rainbow_ns_override;
+  led_setups[1]  = leds_teal_override;
+  led_setups[2]  = leds_yellow_override;
   led_setups[3]  = leds_purple;
   led_setups[4]  = leds_teal_salmon_override;
   led_setups[5]  = leds_green_override;
@@ -150,6 +150,202 @@ void matrix_init_user(void) {
   led_setups[8]  = leds_bwo_s;
   led_setups[9]  = leds_rainbow_burst_s;
   led_setups[10] = leds_trolls_dance_party_s;
+};
+
+void open_alfred() {
+  register_code(KC_LALT);
+  register_code(KC_SPC);
+  unregister_code(KC_SPC);
+  unregister_code(KC_LALT);
+  wait_ms(30);
+}
+
+void open_spotlight() {
+  register_code(KC_LGUI);
+  register_code(KC_SPC);
+  unregister_code(KC_SPC);
+  unregister_code(KC_LGUI);
+  wait_ms(30);
+}
+
+LEADER_EXTERNS();
+
+// Runs constantly in the background, in a loop.
+void matrix_scan_user(void) {
+  /* Leader Keys: App Hotkeys (Fn3/Lēdr)
+   * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┬───┐
+   * │Slp│Ds1│Ds2│   │   │   │   │   │   │   │   │   │   │       │   │
+   * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┼───┤
+   * │     │   │   │   │   │Trm│   │   │tun│   │   │Trm│IDE│Brows│   │
+   * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
+   * │      │Abl│Slk│   │Fnd│   │   │   │   │Lck│   │   │        │   │
+   * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
+   * │        │Zöm│   │Cal│VsC│Brs│   │Ber│Māl│   │   │Slack │   │   │
+   * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
+   * │    │    │    │        Spotlite        │Lēdr│Alfr│ │   │   │   │
+   * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
+   */
+  LEADER_DICTIONARY() {
+      leading = false;
+      leader_end();
+
+      SEQ_ONE_KEY(KC_ESC) {
+        open_alfred();
+        SEND_STRING("Sleep" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_1) {
+        register_code(KC_LCTL);
+        register_code(KC_1);
+        unregister_code(KC_1);
+        unregister_code(KC_LCTL);
+      }
+
+      SEQ_ONE_KEY(KC_2) {
+        register_code(KC_LCTL);
+        register_code(KC_2);
+        unregister_code(KC_2);
+        unregister_code(KC_LCTL);
+      }
+
+      SEQ_ONE_KEY(KC_A) {
+        open_alfred();
+        SEND_STRING("Ableton Live 11 Suite.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_RBRC) {
+        open_alfred();
+        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_B) {
+        open_alfred();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_B, KC_B) {
+        open_alfred();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_C) {
+        open_alfred();
+        SEND_STRING("Calendar.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_C, KC_C) {
+        open_alfred();
+        SEND_STRING("Numi.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_F) {
+        open_alfred();
+        SEND_STRING("Finder.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_F, KC_F) {
+        open_alfred();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_BSPC) {
+        open_alfred();
+        SEND_STRING("Firefox.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_L) {
+        open_alfred();
+        SEND_STRING("Lock" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_M) {
+        open_alfred();
+        SEND_STRING("Mail.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_M, KC_M) {
+        open_alfred();
+        SEND_STRING("Messages.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_I) {
+        open_alfred();
+        SEND_STRING("Music.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_N) {
+        open_alfred();
+        SEND_STRING("Bear.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_S) {
+        open_alfred();
+        SEND_STRING("Slack.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_RSFT) {
+        open_alfred();
+        SEND_STRING("Slack.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_S, KC_S) {
+        open_alfred();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_BSPC, KC_BSPC) {
+        open_alfred();
+        SEND_STRING("Safari.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_SPC) {
+        open_spotlight();
+      }
+
+      SEQ_ONE_KEY(LYR_2) {
+        open_alfred();
+      }
+
+      SEQ_ONE_KEY(KC_T) {
+        open_alfred();
+        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_LBRC) {
+        open_alfred();
+        SEND_STRING("Terminal.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_V) {
+        open_alfred();
+        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_TWO_KEYS(KC_RBRC, KC_RBRC) {
+        open_alfred();
+        SEND_STRING("Visual Studio Code.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_Z) {
+        open_alfred();
+        SEND_STRING("zoom.us.app" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_COMM) {
+        open_alfred();
+        SEND_STRING("close-notifications" SS_TAP(X_ENTER));
+      }
+
+      SEQ_ONE_KEY(KC_DOT) {
+        open_alfred();
+        SEND_STRING("snooze-notifications" SS_TAP(X_ENTER));
+      }
+      
+      SEQ_ONE_KEY(KC_SLSH) {
+        open_alfred();
+        SEND_STRING("join-meeting-notification" SS_TAP(X_ENTER));
+      }
+    }
 };
 
 #define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
@@ -333,7 +529,7 @@ led_instruction_t led_instructions[] = {
   //All LEDs use the user's selected pattern (this is the factory default)
   { .flags = LED_FLAG_USE_ROTATE_PATTERN },
 
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 0, .id1 = 240, .r = 127, .g = 0, .b = 255 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 0, .id1 = 240, .r = 47, .g = 167, .b = 190 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_USE_ROTATE_PATTERN, .layer = 1, .id2 = 4294967288, .id3 = 511 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_PATTERN, .layer = 1, .id0 = 2147483648, .id1 = 50348034, .id2 = 2, .pattern_id = 1 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 16385, .r = 0, .g = 0, .b = 255 },
@@ -341,11 +537,15 @@ led_instruction_t led_instructions[] = {
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id1 = 67108864, .r = 127, .g = 0, .b = 255 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 1, .id0 = 2147450880, .id1 = 4177510397, .id2 = 5, .r = 0, .g = 0, .b = 0 },
-  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 3791798272, .id1 = 570427395, .id2 = 4294967293, .id3 = 511, .r = 30, .g = 136, .b = 229 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 3791798272, .id1 = 570427395, .id2 = 4294967293, .id3 = 511, .r = 47, .g = 167, .b = 190 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 8192, .r = 255, .g = 0, .b = 0 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id1 = 2147483648, .r = 127, .g = 0, .b = 255 },
   { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 2, .id0 = 503160831, .id1 = 1577056252, .id2 = 2, .r = 0, .g = 0, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2148532230, .id1 = 14327813, .id2 = 4294967288, .id3 = 511, .r = 254, .g = 119, .b = 0 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id1 = 1073741824, .r = 127, .g = 0, .b = 255 },
+  { .flags = LED_FLAG_MATCH_LAYER | LED_FLAG_MATCH_ID | LED_FLAG_USE_RGB, .layer = 3, .id0 = 2146435065, .id1 = 3206897658, .id2 = 7, .r = 0, .g = 0, .b = 0 },
 
   //end must be set to 1 to indicate end of instruction set
   { .end = 1 }
 };
+
